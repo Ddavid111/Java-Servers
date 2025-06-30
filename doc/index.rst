@@ -10,14 +10,4 @@ Szakmai Gyakorlat
    :maxdepth: 6
    :caption: Contents:
 
-   chapters/01
    chapters/Tervezes
-   chapters/02
-   chapters/Hasznalati_esetek
-   chapters/Lapok_reszletezese
-   chapters/Lapok_kozotti_atmenetek
-   chapters/Adatmodell
-   chapters/Classdiagram
-   chapters/Planning
-   chapters/CRUD
-   chapters/jUnit-os tesztek felsorolása
