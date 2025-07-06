@@ -13,4 +13,3 @@ Java szerverek összehasonlítása
    chapters/Elokeszuletek
    chapters/Kodelemzes
    chapters/Meresek
-   chapters/Linkek
