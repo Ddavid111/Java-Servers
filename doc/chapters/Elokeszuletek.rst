@@ -182,21 +182,23 @@ Verziók, verziótörténet (fejlesztési történet elemzése)
 Támogatott Java verziók, azon belül Java szabvány (Ezt érdemes lehet például táblázatos formában: sorokban feature-ök, oszlopokban alkalmazásszerverek.)
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
-.. csv-table:: Támogatott Java / EE szabványok az alkalmazásszerverekben
-   :header: "Szabvány / Feature", "Jetty", "Tomcat", "GlassFish", "WildFly", "WebLogic", "WebSphere Liberty"
-   :widths: 25, 10, 10, 10, 10, 10, 15
+.. csv-table:: Java EE / Jakarta EE támogatás alkalmazásszerverenként
+   :header: "Specifikáció", "Apache Tomcat", "Eclipse Jetty", "GlassFish", "JBoss / WildFly", "WebLogic", "WebSphere"
+   :widths: 20, 15, 15, 15, 15, 15, 15
 
-   "Java SE támogatás", "11–21", "8–21", "8–21", "11–21", "8–21", "8–21"
-   "Servlet", "6.0", "6.0", "6.0", "6.0", "5.0", "6.0"
-   "JSP", "-", "2.3", "3.1", "3.1", "2.3", "3.1"
-   "JSF", "-", "-", "2.3", "3.0", "2.3", "3.0"
-   "JPA", "-", "-", "2.2 / 3.1", "3.1", "2.2", "3.1"
-   "CDI", "-", "-", "3.0", "4.0", "2.0", "4.0"
-   "Jakarta EE", "Partial", "Partial", "10", "10", "8 / 10", "10"
-   "MicroProfile", "-", "-", "-", "6.1", "-", "6.1"
-   "WebSocket", "támogatott", "támogatott", "támogatott", "támogatott", "támogatott", "támogatott"
-   "HTTP/2", "igen", "igen", "igen", "igen", "igen", "igen"
-   "HTTP/3", "előzetes", "-", "-", "fejlesztés alatt", "-", "kísérleti"
+   "Java Servlet",       "igen", "igen", "igen", "igen", "igen", "igen"
+   "JSP",                "igen", "igen", "igen", "igen", "igen", "igen"
+   "JSF",                "nem",  "nem",  "igen", "igen", "igen", "igen"
+   "JPA",                "nem",  "nem",  "igen", "igen", "igen", "igen"
+   "EJB",                "nem",  "nem",  "igen", "igen", "igen", "igen"
+   "JMS",                "nem",  "nem",  "igen", "igen", "igen", "igen"
+   "CDI",                "nem",  "nem",  "igen", "igen", "igen", "igen"
+   "JTA",                "nem",  "nem",  "igen", "igen", "igen", "igen"
+   "Jakarta EE 8",       "nem",  "részleges", "igen", "igen", "igen", "igen"
+   "Jakarta EE 9 / 10",  "nem",  "igen (Jetty 11)", "igen", "igen", "igen", "igen"
+   "Java SE 8",          "igen", "igen", "igen", "igen", "igen", "igen"
+   "Java SE 11",         "igen", "igen", "igen", "igen", "igen", "igen"
+   "Java SE 17+",        "igen", "igen", "igen", "igen", "igen", "igen"
 
 
 Telepítéssel kapcsolatban beállítások, fájlok, jegyzékek (szerkezete, mérete)
