@@ -21,6 +21,8 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../source'))
 
+plantuml_jar_path = os.getenv('PLANTUML_JAR', 'plantuml.jar')
+plantuml = f'java -jar {plantuml_jar_path}'
 
 # -- General configuration ------------------------------------------------
 
@@ -35,8 +37,6 @@ extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 's
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-
-plantuml = 'java -jar C:\\Users\\zalma\\plantuml-1.2025.4.jar'
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
