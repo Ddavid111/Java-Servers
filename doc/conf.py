@@ -31,10 +31,12 @@ sys.path.insert(0, os.path.abspath('../source'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 'sphinxcontrib.plantuml',]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+plantuml = 'java -jar C:\\Users\\zalma\\plantuml-1.2025.4.jar'
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
