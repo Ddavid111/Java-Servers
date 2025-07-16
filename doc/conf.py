@@ -21,7 +21,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../source'))
 
-plantuml_jar_path = os.getenv('PLANTUML_JAR', 'plantuml.jar')
+plantuml_jar_path = os.path.abspath('plantuml.jar')  # Gyökérből nézi
 plantuml = f'java -jar {plantuml_jar_path}'
 
 # -- General configuration ------------------------------------------------
