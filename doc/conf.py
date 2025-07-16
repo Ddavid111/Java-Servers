@@ -35,6 +35,9 @@ plantuml = f'java -jar {plantuml_jar_path}'
 # ones.
 extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 'sphinxcontrib.plantuml',]
 
+plantuml_output_format = 'svg'
+plantuml_output_dir = 'chapters/images'
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
