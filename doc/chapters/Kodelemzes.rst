@@ -22,8 +22,8 @@ Jetty architektúra
 
    rectangle "Jetty Server" as Jetty
 
-   rectangle "WebApp \"Store\"" as Store
-   rectangle "WebApp \"Catalog\"" as Catalog
+   rectangle "WebApp Store" as Store
+   rectangle "WebApp Catalog" as Catalog
 
    Internet --> HTTP11
    Internet --> HTTP2
@@ -34,6 +34,23 @@ Jetty architektúra
    Jetty --> Store
    Jetty --> Catalog
    @enduml
+
+
+Az architektúra elemei és kapcsolódásuk:
+
+- **Internet**: A külső világot reprezentálja, amelyen keresztül a klienskérések érkeznek.
+- **HTTP/1.1 Connector**: Egy kapcsolódási pont, amely a HTTP/1.1 protokollt kezeli. A felhasználói kéréseket fogadja be az internetről.
+- **HTTP/2 Connector**: Egy modern, hatékonyabb kapcsolódási pont, amely a HTTP/2 protokollt kezeli, támogatva a multiplexálást és gyorsabb adatátvitelt.
+- **Jetty Server**: A központi szerver komponens, amely feldolgozza a beérkező HTTP kéréseket, továbbítja azokat a belső komponenseknek, és előállítja a válaszokat.
+- **WebApp Store**: Az alkalmazásokhoz tartozó erőforrásokat, fájlokat tároló komponens, amelyből a Jetty szükség esetén betöltheti az alkalmazás elemeit.
+- **WebApp Catalog**: Az elérhető alkalmazások vagy modulok katalógusa, amely segíti a Jetty szervert az alkalmazások kezelésében.
+
+**Kapcsolatok:**
+
+- Az **Internet** kapcsolatot létesít a HTTP/1.1 és HTTP/2 Connectorokkal, amelyek a különböző protokollok szerint fogadják a kéréseket.
+- Mindkét Connector továbbítja a beérkező kéréseket a **Jetty Server**-hez.
+- A Jetty Server a kérések feldolgozása során a **WebApp Store** és **WebApp Catalog** komponenseket használja az alkalmazás elemeinek kiszolgálásához.
+
 
 GlassFish architektúra
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -67,6 +84,30 @@ GlassFish architektúra
 
    @enduml
 
+
+Az architektúra elemei és kapcsolódásuk:
+
+- **Internet**: A kliens oldali kérések forrása.
+- **HTTP Connector (Grizzly)**: A GlassFish által használt HTTP-kapcsolódási pont, amely fogadja az internet felől érkező kéréseket.
+- **GlassFish Server**: A fő szerver komponens, amely három fő alrendszerből áll:
+
+  - **Web Container (Servlets, JSP)**: Kezeli a webkomponenseket, például servlet-eket és JSP-ket.
+
+  - **EJB Container (Enterprise Beans)**: Kezeli az üzleti logikát tartalmazó Enterprise Java Beans komponenseket.
+
+  - **Java EE Services (JTA, JMS, JPA, stb.)**: Szolgáltatásokat biztosít, mint tranzakciókezelés, üzenetküldés, perzisztencia.
+
+- **Database**: Az adatbázis, amelyhez a Java EE szolgáltatások kapcsolódnak.
+- **External Services**: Külső rendszerek vagy szolgáltatások, amelyek integrálhatók a GlassFish környezetbe.
+
+**Kapcsolatok:**
+
+- Az **Internet** kapcsolatot létesít a HTTP Connectorral.
+- A HTTP Connector továbbítja a kéréseket a **Web Containernek**.
+- A Web Container továbbítja a kéréseket az **EJB Containernek**.
+- Az EJB Container hívja a **Java EE Services** komponenseket, amelyek kapcsolatban állnak az **adatbázissal** és **külső szolgáltatásokkal**.
+
+
 Tomcat architektúrája
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -97,6 +138,30 @@ Tomcat architektúrája
    Context --> Jasper
    @enduml
 
+Az architektúra elemei és kapcsolódásuk:
+
+- **Internet**: A külső klienskérések forrása.
+- **HTTP Connector (Coyote)**: Tomcat HTTP kapcsolatkezelő komponense, amely fogadja a bejövő kéréseket.
+- **Tomcat Server**: A fő szerver komponens, amely a következő alrendszerekből áll:
+
+  - **Engine**: A legfelső szintű komponens, amely a kérések feldolgozását irányítja.
+
+  - **Host**: Egy konkrét virtuális hoszt, amely több kontextust (alkalmazást) tartalmaz.
+
+  - **Context**: Egy adott webalkalmazás egysége.
+
+  - **Servlet Container**: Kezeli a servlet-eket, amelyek feldolgozzák a HTTP kéréseket.
+
+  - **JSP Engine (Jasper)**: A JSP-ket feldolgozó komponens.
+
+**Kapcsolatok:**
+
+- Az **Internet** kapcsolatot létesít a Coyote Connectorral.
+- A Coyote Connector továbbítja a kéréseket az **Engine** komponensnek.
+- Az Engine irányítja a kéréseket a **Host**, majd a **Context** komponens felé.
+- A Context a kéréseket kiszolgálja a **Servlet Container** vagy **JSP Engine** segítségével.
+
+
 Geronimo architektúrája
 ^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -126,6 +191,28 @@ Geronimo architektúrája
    EJB --> EE
    EE --> DB
    @enduml
+
+Az architektúra elemei és kapcsolódásuk:
+
+- **Internet**: Klienskérések forrása.
+- **HTTP Connector**: A Geronimo szerver HTTP-kapcsolati pontja.
+- **Geronimo Server**: Szerverkomponens, mely az alábbiakat tartalmazza:
+
+  - **Web Container (Servlets, JSP)**: Kezeli a webes komponenseket.
+
+  - **EJB Container (Enterprise Beans)**: Kezeli az üzleti logikát tartalmazó Enterprise Beans komponenseket.
+
+  - **Java EE Services (JTA, JMS, JPA, stb.)**: Szolgáltatásokat nyújt.
+
+- **Database**: Az adatbázis backend.
+
+**Kapcsolatok:**
+
+- Az **Internet** kapcsolatot létesít a HTTP Connectorral.
+- A Connector továbbítja a kéréseket a **Web Containernek**.
+- A Web Container kommunikál az **EJB Containerrel**, amely a Java EE szolgáltatásokat használja.
+- A Java EE szolgáltatások kapcsolatban állnak az **adatbázissal**.
+
 
 WildFly (JBoss EAP) architektúrája
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -162,6 +249,29 @@ WildFly (JBoss EAP) architektúrája
    Management --> EJBContainer
    @enduml
 
+Az architektúra elemei és kapcsolódásuk:
+
+- **Internet**: Klienskérések forrása.
+- **HTTP Connector (Undertow)**: WildFly által használt HTTP kapcsolatkezelő.
+- **WildFly Server**: Fő szerver komponens, mely a következő alrendszereket tartalmazza:
+
+  - **Management Console / CLI**: Adminisztrációs felület és parancssoros kliens.
+
+  - **Web Subsystem (Servlets, JSP)**: Webalkalmazások kiszolgálása.
+
+  - **EJB Container**: Enterprise Beans kezelés.
+
+  - **Messaging Subsystem (JMS)**: Üzenetküldési szolgáltatások.
+
+- **Database**: Adatbázis backend.
+
+**Kapcsolatok:**
+
+- Az **Internet** a Connectoron keresztül kapcsolódik a Web Subsystemhez, EJB Containerhez és Messaginghez.
+- Mindhárom komponens kapcsolódik az adatbázishoz.
+- A Management Console/CLI kapcsolatban áll a Web Subsystemmel és az EJB Containerral az adminisztráció során.
+
+
 Oracle WebLogic architektúrája
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -195,6 +305,31 @@ Oracle WebLogic architektúrája
    Admin --> AppRuntime
    @enduml
 
+Az architektúra elemei és kapcsolódásuk:
+
+- **Internet**: Klienskérések forrása.
+- **HTTP Channel**: WebLogic HTTP kapcsolatpontja.
+- **WebLogic Server**: Szerverkomponens, amely tartalmazza:
+
+  - **Web Container (Servlets, JSP)**: Webkomponensek kezelése.
+
+  - **Application Runtime (EJB, JMS, JPA)**: Alkalmazásfutási környezet.
+
+  - **Security & Transactions**: Biztonsági és tranzakciókezelési komponens.
+
+- **Admin Server**: Adminisztrációs komponens.
+- **Database**: Adatbázis backend.
+
+**Kapcsolatok:**
+
+- Az **Internet** a HTTP Channelon keresztül érkezik.
+- A HTTP Channel továbbítja a kéréseket a Web Containernek.
+- A Web Container kommunikál az Application Runtime komponenssel.
+- Az Application Runtime kapcsolódik a Security & Transactions komponenshez.
+- Ez utóbbi kapcsolatban áll az adatbázissal.
+- Az Admin Server az adminisztráció során kapcsolódik a Web Containerhez és az Application Runtime-hoz.
+
+
 IBM WebSphere architektúrája
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -227,6 +362,30 @@ IBM WebSphere architektúrája
    Admin --> WebContainer
    Admin --> BusinessLogic
    @enduml
+
+Az architektúra elemei és kapcsolódásuk:
+
+- **Internet**: Külső kérések forrása.
+- **HTTP Endpoint**: WebSphere HTTP kapcsolatkezelő komponense.
+- **WebSphere Server**: Szerverkomponens, amely a következő részekből áll:
+
+  - **Web Container (Servlets, JSP, JSF)**: Webkomponensek kezelése.
+
+  - **Business Logic (EJB, CDI)**: Üzleti logika kezelése.
+
+  - **Integration Services (JMS, JPA, JTA)**: Integrációs szolgáltatások.
+
+- **Admin Console**: Adminisztrációs felület.
+- **Database**: Adatbázis backend.
+
+**Kapcsolatok:**
+
+- Az **Internet** a HTTP Endpointon keresztül érkezik.
+- A HTTP Endpoint továbbítja a kéréseket a Web Containernek.
+- A Web Container továbbítja azokat az üzleti logikát kezelő komponensnek.
+- Az üzleti logika kapcsolatban áll az integrációs szolgáltatásokkal.
+- Az integrációs szolgáltatások kapcsolódnak az adatbázishoz.
+- Az Admin Console kapcsolódik a Web Containerhez és az üzleti logikához.
 
 
 Konfigurációs lehetőségek (pl.: limitek, cache méretek)
