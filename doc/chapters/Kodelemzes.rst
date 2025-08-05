@@ -637,9 +637,290 @@ WebSphere a `High Performance Extensible Logging (HPEL)` rendszert használja.
 - Admin Console → `Troubleshooting → Logs and trace`
 - CLI (`wsadmin`) is használható
 
+Kódmetrikák (Egyáltalán melyik mekkora méretű szoftver?) [Feldolgozás alatt...]
+-------------------------------------------------------------------------------
 
-Kódmetrikák (Egyáltalán melyik mekkora méretű szoftver?)
---------------------------------------------------------
+A különböző alkalmazásszerverekhez készült mintaalkalmazások méretének összehasonlításához a
+`cloc <https://github.com/AlDanial/cloc>`_ nevű eszközt használtam, amely különböző programozási nyelvekben
+írt kódok sorainak számát méri.
+
+Az alábbi táblázat a Hello World típusú alkalmazások kódsorainak számát mutatja:
+
++--------------------------+------------+------------+---------------+----------------+
+| Alkalmazás               | Java fájlok| Java kódsor| XML kódsor    | Összes kódsor  |
++==========================+============+============+===============+================+
+| Jetty (Hello World)      | 2          | 36         | 14            | 50             |
++--------------------------+------------+------------+---------------+----------------+
+| Glassfish (Hello World)  | 1          | 14         | 15            | 29             |
++--------------------------+------------+------------+---------------+----------------+
+| Tomcat (Hello World)     | 1          | 14         | 15            | 29             |
++--------------------------+------------+------------+---------------+----------------+
+| Wildfly (Hello World)    | 1          | 13         | 14            | 27             |
++--------------------------+------------+------------+---------------+----------------+
+
++--------------------------+------------+------------+---------------+----------------+
+| Alkalmazás               | Java fájlok| Java kódsor| XML kódsor    | Összes kódsor  |
++==========================+============+============+===============+================+
+| Jetty (REST)             | 2          | 64         | 0             | 64             |
++--------------------------+------------+------------+---------------+----------------+
+| Glassfish (REST)         | 2          | 40         | 0             | 40             |
++--------------------------+------------+------------+---------------+----------------+
+| Tomcat (REST)            | 1          | 28         | 15            | 43             |
++--------------------------+------------+------------+---------------+----------------+
+| Wildfly (REST)           | 2          | 33         | 14            | 47             |
++--------------------------+------------+------------+---------------+----------------+
+
+A mérések során az alábbi egyszerű parancsot használtam:
+
+.. code-block:: bash
+
+   cloc path/to/project/src
+
+Ez a metrika segít felmérni az egyes példák összetettségét és terjedelmét. A későbbi metrikákhoz, mint például metódusok
+száma, osztályok közötti függőségek stb., további eszközöket vetettem be (lásd lentebb).
+
+Jetty REST alkalmazás - Kódelemzés
+==================================
+
+Osztályok és metódusok
+-----------------------
+
+A Jetty alapú REST-es mintaalkalmazás két Java osztályból áll:
+
+- ``Main`` – a szerver indítását végzi
+- ``RestServlet`` – a HTTP kérések kezeléséért felelős
+
+Az osztályokban található metódusok:
+
++----------------+----------------------+--------------------+
+| Osztály        | Metódus neve         | Paraméterek száma  |
++================+======================+====================+
+| Main           | main                 | 1                  |
++----------------+----------------------+--------------------+
+| RestServlet    | readRequestBody      | 1                  |
++----------------+----------------------+--------------------+
+| RestServlet    | doGet                | 2                  |
++----------------+----------------------+--------------------+
+| RestServlet    | doPost               | 2                  |
++----------------+----------------------+--------------------+
+| RestServlet    | doPut                | 2                  |
++----------------+----------------------+--------------------+
+| RestServlet    | doDelete             | 2                  |
++----------------+----------------------+--------------------+
+
+Metódusok rövid leírása
+------------------------
+
+- ``main``: Jetty szerver indítása a 8080-as porton.
+- ``readRequestBody``: Bejövő kérés (request) törzsét olvassa ki.
+- ``doGet``: Egyszerű JSON válasz GET kérésre.
+- ``doPost``: A POST kérés törzsét visszaküldi JSON formátumban.
+- ``doPut``: PUT kérés esetén "frissített" válasz JSON-ben.
+- ``doDelete``: Törlés visszajelzése JSON válasszal.
+
+Összesítés
+----------
+
+- Osztályok száma: 2
+- Összes metódus: 6
+- Paraméterek száma összesen: 11
+
+GlassFish REST alkalmazás - Kódelemzés
+======================================
+
+Osztályok és metódusok
+-----------------------
+
+A GlassFish alapú REST mintaalkalmazás két Java osztályból áll:
+
+- ``HelloResource`` – a REST erőforrás osztály, HTTP metódusokat definiál
+- ``RestApplication`` – a JAX-RS alkalmazás konfigurációs osztálya (API útvonal beállítása)
+
+Az osztályokban található metódusok:
+
++------------------+------------------+--------------------+
+| Osztály          | Metódus neve     | Paraméterek száma  |
++==================+==================+====================+
+| HelloResource    | getHello         | 0                  |
++------------------+------------------+--------------------+
+| HelloResource    | postHello        | 1                  |
++------------------+------------------+--------------------+
+| HelloResource    | putHello         | 1                  |
++------------------+------------------+--------------------+
+| HelloResource    | deleteHello      | 0                  |
++------------------+------------------+--------------------+
+| RestApplication  | (nincs metódus)  | -                  |
++------------------+------------------+--------------------+
+
+Metódusok rövid leírása
+------------------------
+
+- ``getHello``: GET kérés kezelése, JSON válasz küldése.
+- ``postHello``: POST kérés fogadása JSON formátumban, visszaküldött JSON válasz.
+- ``putHello``: PUT kérés fogadása JSON formátumban, frissítés visszajelzése JSON-ben.
+- ``deleteHello``: DELETE kérés kezelése, törlés visszajelzése JSON válasszal.
+- ``RestApplication``: Az alkalmazás API alapútvonalának (/api) beállítása.
+
+Összesítés
+----------
+
+- Osztályok száma: 2
+- Összes metódus: 4
+- Paraméterek száma összesen: 2
+
+Tomcat REST alkalmazás - Kódelemzés
+===================================
+
+Osztályok és metódusok
+----------------------
+
+A Tomcat alapú REST mintaalkalmazás egyetlen Java osztályból áll:
+
+- ``RestServlet`` – a HttpServlet leszármazottja, amely kezeli a HTTP metódusokat
+
+Az osztályban található metódusok:
+
++------------+----------------+-------------------+
+| Osztály    | Metódus neve   | Paraméterek száma |
++============+================+===================+
+| RestServlet| doGet          | 2                 |
++------------+----------------+-------------------+
+| RestServlet| doPost         | 2                 |
++------------+----------------+-------------------+
+| RestServlet| doPut          | 2                 |
++------------+----------------+-------------------+
+| RestServlet| doDelete       | 2                 |
++------------+----------------+-------------------+
+
+Metódusok rövid leírása
+-----------------------
+
+- ``doGet``: GET kérés kezelése, JSON válasz küldése.
+- ``doPost``: POST kérés kezelése, egyszerű JSON válasz.
+- ``doPut``: PUT kérés kezelése, egyszerű JSON válasz.
+- ``doDelete``: DELETE kérés kezelése, egyszerű JSON válasz.
+
+Összesítés
+----------
+
+- Osztályok száma: 1
+- Összes metódus: 4
+- Paraméterek száma összesen: 8 (minden metódus 2 paramétert fogad)
+
+WildFly REST alkalmazás - Kódelemzés
+====================================
+
+Osztályok és metódusok
+----------------------
+
+A WildFly alapú REST mintaalkalmazás két Java osztályból áll:
+
+- ``HelloResource`` – REST erőforrás osztály, amely a HTTP metódusokat kezeli
+- ``RestApplication`` – alkalmazás konfigurációs osztály, a JAX-RS alkalmazás megjelölésére
+
+A ``HelloResource`` osztály metódusai:
+
++---------------+---------+-------------------+
+| Osztály       | Metódus | Paraméterek száma |
++===============+=========+===================+
+| HelloResource | get     | 0                 |
++---------------+---------+-------------------+
+| HelloResource | post    | 1                 |
++---------------+---------+-------------------+
+| HelloResource | put     | 1                 |
++---------------+---------+-------------------+
+| HelloResource | delete  | 0                 |
++---------------+---------+-------------------+
+
+Metódusok rövid leírása
+-----------------------
+
+- ``get``: GET kérés kezelése, JSON válasz visszaadása.
+- ``post``: POST kérés kezelése, JSON formátumú bemeneti adat fogadása és válasz küldése.
+- ``put``: PUT kérés kezelése, JSON formátumú bemeneti adat fogadása és válasz küldése.
+- ``delete``: DELETE kérés kezelése, JSON válasz küldése.
+
+Összesítés
+----------
+
+- Osztályok száma: 2
+- Összes metódus: 4
+- Paraméterek száma összesen: 2
+
+
+.. uml::
+
+    @startuml
+    class Main {
+      +main(String[] args)
+    }
+
+    class RestServlet {
+      -readRequestBody(HttpServletRequest req): String
+      +doGet(HttpServletRequest req, HttpServletResponse resp)
+      +doPost(HttpServletRequest req, HttpServletResponse resp)
+      +doPut(HttpServletRequest req, HttpServletResponse resp)
+      +doDelete(HttpServletRequest req, HttpServletResponse resp)
+    }
+
+    Main --> RestServlet : használja
+    RestServlet ..> HttpServletRequest : használja
+    RestServlet ..> HttpServletResponse : használja
+
+    @enduml
+
+.. uml::
+
+    @startuml
+    class HelloResource {
+      +getHello(): String
+      +postHello(String data): String
+      +putHello(String data): String
+      +deleteHello(): String
+    }
+
+    class RestApplication {
+    }
+
+    RestApplication ..|> jakarta.ws.rs.core.Application
+    HelloResource ..> jakarta.ws.rs.core.MediaType : használja
+    HelloResource --> RestApplication : része
+
+    @enduml
+
+.. uml::
+
+    @startuml
+    class RestServlet {
+      +doGet(HttpServletRequest req, HttpServletResponse resp)
+      +doPost(HttpServletRequest req, HttpServletResponse resp)
+      +doPut(HttpServletRequest req, HttpServletResponse resp)
+      +doDelete(HttpServletRequest req, HttpServletResponse resp)
+    }
+
+    RestServlet ..> javax.servlet.http.HttpServletRequest : használja
+    RestServlet ..> javax.servlet.http.HttpServletResponse : használja
+
+    @enduml
+
+
+.. uml::
+
+    @startuml
+    class HelloResource {
+      +get(): Response
+      +post(String body): Response
+      +put(String body): Response
+      +delete(): Response
+    }
+
+    class RestApplication {
+    }
+
+    HelloResource --> Response : használja
+
+    @enduml
+
 
 Alkalmazásszerver indítási folyamatát megvizsgálni (folyamatábra, gantt diagram, szekvencia diagram) - Ezekhez is jó, hogy ha tartoznak majd mérések.
 -----------------------------------------------------------------------------------------------------------------------------------------------------
