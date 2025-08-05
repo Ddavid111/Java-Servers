@@ -1,0 +1,1157 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="hu" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kódelemzés &mdash; Diplomamunka  dokumentáció</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=24d5f357"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=ea187aaa"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Tárgymutató" href="../genindex.html" />
+    <link rel="search" title="Keresés" href="../search.html" />
+    <link rel="next" title="Mérések" href="Meresek.html" />
+    <link rel="prev" title="Előkészületek" href="Elokeszuletek.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Diplomamunka
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Elokeszuletek.html">Előkészületek</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#belso-architekturajuknak-a-felrajzolasa">Belső architekturájuknak a felrajzolása</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#jetty-architektura">Jetty architektúra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#glassfish-architektura">GlassFish architektúra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tomcat-architekturaja">Tomcat architektúrája</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geronimo-architekturaja">Geronimo architektúrája</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wildfly-jboss-eap-architekturaja">WildFly (JBoss EAP) architektúrája</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oracle-weblogic-architekturaja">Oracle WebLogic architektúrája</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ibm-websphere-architekturaja">IBM WebSphere architektúrája</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#konfiguracios-lehetosegek-pl-limitek-cache-meretek">Konfigurációs lehetőségek (pl.: limitek, cache méretek)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#eclipse-jetty">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#glassfish">GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apache-tomcat">Apache Tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apache-geronimo">Apache Geronimo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#red-hat-jboss-wildfly">Red Hat JBoss / WildFly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oracle-weblogic">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ibm-websphere">IBM WebSphere</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#naplozas">Naplózás</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Apache Tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Apache Geronimo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Red Hat JBoss / WildFly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">IBM WebSphere</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#kodmetrikak-egyaltalan-melyik-mekkora-meretu-szoftver-feldolgozas-alatt">Kódmetrikák (Egyáltalán melyik mekkora méretű szoftver?) [Feldolgozás alatt…]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#jetty-rest-alkalmazas-kodelemzes">Jetty REST alkalmazás - Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#osztalyok-es-metodusok">Osztályok és metódusok</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metodusok-rovid-leirasa">Metódusok rövid leírása</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#osszesites">Összesítés</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#glassfish-rest-alkalmazas-kodelemzes">GlassFish REST alkalmazás - Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id8">Osztályok és metódusok</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">Metódusok rövid leírása</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">Összesítés</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#tomcat-rest-alkalmazas-kodelemzes">Tomcat REST alkalmazás - Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id11">Osztályok és metódusok</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">Metódusok rövid leírása</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">Összesítés</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#wildfly-rest-alkalmazas-kodelemzes">WildFly REST alkalmazás - Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id14">Osztályok és metódusok</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">Metódusok rövid leírása</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">Összesítés</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alkalmazasszerver-inditasi-folyamatat-megvizsgalni-folyamatabra-gantt-diagram-szekvencia-diagram-ezekhez-is-jo-hogy-ha-tartoznak-majd-meresek">Alkalmazásszerver indítási folyamatát megvizsgálni (folyamatábra, gantt diagram, szekvencia diagram) - Ezekhez is jó, hogy ha tartoznak majd mérések.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Meresek.html">Mérések</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Diplomamunka</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Kódelemzés</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/chapters/Kodelemzes.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="kodelemzes">
+<h1>Kódelemzés<a class="headerlink" href="#kodelemzes" title="Link to this heading"></a></h1>
+<section id="belso-architekturajuknak-a-felrajzolasa">
+<h2>Belső architekturájuknak a felrajzolása<a class="headerlink" href="#belso-architekturajuknak-a-felrajzolasa" title="Link to this heading"></a></h2>
+<section id="jetty-architektura">
+<h3>Jetty architektúra<a class="headerlink" href="#jetty-architektura" title="Link to this heading"></a></h3>
+<p class="plantuml">
+<object data="../_images/plantuml-bea39f449729c6306c1a8c80f5a8ce9ff435e235.svg" type="image/svg+xml" style="width:360px;height:352px;background:#FFFFFF;">
+<img src="../_images/plantuml-bea39f449729c6306c1a8c80f5a8ce9ff435e235.png" alt="&#64;startuml
+skinparam style strictuml
+skinparam shadowing true
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+cloud &quot;Internet&quot; as Internet
+
+rectangle &quot;HTTP/1.1 Connector&quot; as HTTP11
+rectangle &quot;HTTP/2 Connector&quot; as HTTP2
+
+rectangle &quot;Jetty Server&quot; as Jetty
+
+rectangle &quot;WebApp Store&quot; as Store
+rectangle &quot;WebApp Catalog&quot; as Catalog
+
+Internet --&gt; HTTP11
+Internet --&gt; HTTP2
+
+HTTP11 --&gt; Jetty
+HTTP2 --&gt; Jetty
+
+Jetty --&gt; Store
+Jetty --&gt; Catalog
+&#64;enduml"/>
+
+</object></p>
+<p>Az architektúra elemei és kapcsolódásuk:</p>
+<ul class="simple">
+<li><p><strong>Internet</strong>: A külső világot reprezentálja, amelyen keresztül a klienskérések érkeznek.</p></li>
+<li><p><strong>HTTP/1.1 Connector</strong>: Egy kapcsolódási pont, amely a HTTP/1.1 protokollt kezeli. A felhasználói kéréseket fogadja be az internetről.</p></li>
+<li><p><strong>HTTP/2 Connector</strong>: Egy modern, hatékonyabb kapcsolódási pont, amely a HTTP/2 protokollt kezeli, támogatva a multiplexálást és gyorsabb adatátvitelt.</p></li>
+<li><p><strong>Jetty Server</strong>: A központi szerver komponens, amely feldolgozza a beérkező HTTP kéréseket, továbbítja azokat a belső komponenseknek, és előállítja a válaszokat.</p></li>
+<li><p><strong>WebApp Store</strong>: Az alkalmazásokhoz tartozó erőforrásokat, fájlokat tároló komponens, amelyből a Jetty szükség esetén betöltheti az alkalmazás elemeit.</p></li>
+<li><p><strong>WebApp Catalog</strong>: Az elérhető alkalmazások vagy modulok katalógusa, amely segíti a Jetty szervert az alkalmazások kezelésében.</p></li>
+</ul>
+<p><strong>Kapcsolatok:</strong></p>
+<ul class="simple">
+<li><p>Az <strong>Internet</strong> kapcsolatot létesít a HTTP/1.1 és HTTP/2 Connectorokkal, amelyek a különböző protokollok szerint fogadják a kéréseket.</p></li>
+<li><p>Mindkét Connector továbbítja a beérkező kéréseket a <strong>Jetty Server</strong>-hez.</p></li>
+<li><p>A Jetty Server a kérések feldolgozása során a <strong>WebApp Store</strong> és <strong>WebApp Catalog</strong> komponenseket használja az alkalmazás elemeinek kiszolgálásához.</p></li>
+</ul>
+</section>
+<section id="glassfish-architektura">
+<h3>GlassFish architektúra<a class="headerlink" href="#glassfish-architektura" title="Link to this heading"></a></h3>
+<p class="plantuml">
+<object data="../_images/plantuml-f8b713cbd0c7deaf2403ef3b8f398e1aaa0b8dc0.svg" type="image/svg+xml" style="width:289px;height:630px;background:#FFFFFF;">
+<img src="../_images/plantuml-f8b713cbd0c7deaf2403ef3b8f398e1aaa0b8dc0.png" alt="&#64;startuml
+skinparam style strictuml
+skinparam shadowing true
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+cloud &quot;Internet&quot; as Internet
+
+rectangle &quot;HTTP Connector\n(Grizzly)&quot; as HTTP
+
+node &quot;GlassFish Server&quot; {
+    rectangle &quot;Web Container\n(Servets, JSP)&quot; as Web
+    rectangle &quot;EJB Container\n(Enterprise Beans)&quot; as EJB
+    rectangle &quot;Java EE Services\n(JTA, JMS, JPA, etc.)&quot; as EE
+}
+
+database &quot;Database&quot; as DB
+folder &quot;External Services&quot; as External
+
+Internet --&gt; HTTP
+HTTP --&gt; Web
+Web --&gt; EJB
+EJB --&gt; EE
+EE --&gt; DB
+EE --&gt; External
+
+&#64;enduml"/>
+
+</object></p>
+<p>Az architektúra elemei és kapcsolódásuk:</p>
+<ul class="simple">
+<li><p><strong>Internet</strong>: A kliens oldali kérések forrása.</p></li>
+<li><p><strong>HTTP Connector (Grizzly)</strong>: A GlassFish által használt HTTP-kapcsolódási pont, amely fogadja az internet felől érkező kéréseket.</p></li>
+<li><p><strong>GlassFish Server</strong>: A fő szerver komponens, amely három fő alrendszerből áll:</p>
+<ul>
+<li><p><strong>Web Container (Servlets, JSP)</strong>: Kezeli a webkomponenseket, például servlet-eket és JSP-ket.</p></li>
+<li><p><strong>EJB Container (Enterprise Beans)</strong>: Kezeli az üzleti logikát tartalmazó Enterprise Java Beans komponenseket.</p></li>
+<li><p><strong>Java EE Services (JTA, JMS, JPA, stb.)</strong>: Szolgáltatásokat biztosít, mint tranzakciókezelés, üzenetküldés, perzisztencia.</p></li>
+</ul>
+</li>
+<li><p><strong>Database</strong>: Az adatbázis, amelyhez a Java EE szolgáltatások kapcsolódnak.</p></li>
+<li><p><strong>External Services</strong>: Külső rendszerek vagy szolgáltatások, amelyek integrálhatók a GlassFish környezetbe.</p></li>
+</ul>
+<p><strong>Kapcsolatok:</strong></p>
+<ul class="simple">
+<li><p>Az <strong>Internet</strong> kapcsolatot létesít a HTTP Connectorral.</p></li>
+<li><p>A HTTP Connector továbbítja a kéréseket a <strong>Web Containernek</strong>.</p></li>
+<li><p>A Web Container továbbítja a kéréseket az <strong>EJB Containernek</strong>.</p></li>
+<li><p>Az EJB Container hívja a <strong>Java EE Services</strong> komponenseket, amelyek kapcsolatban állnak az <strong>adatbázissal</strong> és <strong>külső szolgáltatásokkal</strong>.</p></li>
+</ul>
+</section>
+<section id="tomcat-architekturaja">
+<h3>Tomcat architektúrája<a class="headerlink" href="#tomcat-architekturaja" title="Link to this heading"></a></h3>
+<p class="plantuml">
+<object data="../_images/plantuml-608e1d28cf48adc2949805b579d67f9c9d9120bf.svg" type="image/svg+xml" style="width:336px;height:598px;background:#FFFFFF;">
+<img src="../_images/plantuml-608e1d28cf48adc2949805b579d67f9c9d9120bf.png" alt="&#64;startuml
+skinparam style strictuml
+skinparam shadowing true
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+cloud &quot;Internet&quot; as Internet
+
+rectangle &quot;HTTP Connector\n(Coyote)&quot; as Coyote
+node &quot;Tomcat Server&quot; {
+    rectangle &quot;Engine&quot; as Engine
+    rectangle &quot;Host&quot; as Host
+    rectangle &quot;Context&quot; as Context
+    rectangle &quot;Servlet Container&quot; as Servlets
+    rectangle &quot;JSP Engine\n(Jasper)&quot; as Jasper
+}
+
+Internet --&gt; Coyote
+Coyote --&gt; Engine
+Engine --&gt; Host
+Host --&gt; Context
+Context --&gt; Servlets
+Context --&gt; Jasper
+&#64;enduml"/>
+
+</object></p>
+<p>Az architektúra elemei és kapcsolódásuk:</p>
+<ul class="simple">
+<li><p><strong>Internet</strong>: A külső klienskérések forrása.</p></li>
+<li><p><strong>HTTP Connector (Coyote)</strong>: Tomcat HTTP kapcsolatkezelő komponense, amely fogadja a bejövő kéréseket.</p></li>
+<li><p><strong>Tomcat Server</strong>: A fő szerver komponens, amely a következő alrendszerekből áll:</p>
+<ul>
+<li><p><strong>Engine</strong>: A legfelső szintű komponens, amely a kérések feldolgozását irányítja.</p></li>
+<li><p><strong>Host</strong>: Egy konkrét virtuális hoszt, amely több kontextust (alkalmazást) tartalmaz.</p></li>
+<li><p><strong>Context</strong>: Egy adott webalkalmazás egysége.</p></li>
+<li><p><strong>Servlet Container</strong>: Kezeli a servlet-eket, amelyek feldolgozzák a HTTP kéréseket.</p></li>
+<li><p><strong>JSP Engine (Jasper)</strong>: A JSP-ket feldolgozó komponens.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Kapcsolatok:</strong></p>
+<ul class="simple">
+<li><p>Az <strong>Internet</strong> kapcsolatot létesít a Coyote Connectorral.</p></li>
+<li><p>A Coyote Connector továbbítja a kéréseket az <strong>Engine</strong> komponensnek.</p></li>
+<li><p>Az Engine irányítja a kéréseket a <strong>Host</strong>, majd a <strong>Context</strong> komponens felé.</p></li>
+<li><p>A Context a kéréseket kiszolgálja a <strong>Servlet Container</strong> vagy <strong>JSP Engine</strong> segítségével.</p></li>
+</ul>
+</section>
+<section id="geronimo-architekturaja">
+<h3>Geronimo architektúrája<a class="headerlink" href="#geronimo-architekturaja" title="Link to this heading"></a></h3>
+<p class="plantuml">
+<object data="../_images/plantuml-341fa747b8f6118b46692e0847b64fda91394fd9.svg" type="image/svg+xml" style="width:242px;height:609px;background:#FFFFFF;">
+<img src="../_images/plantuml-341fa747b8f6118b46692e0847b64fda91394fd9.png" alt="&#64;startuml
+skinparam style strictuml
+skinparam shadowing true
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+cloud &quot;Internet&quot; as Internet
+
+rectangle &quot;HTTP Connector&quot; as Connector
+
+node &quot;Geronimo Server&quot; {
+    rectangle &quot;Web Container\n(Servets, JSP)&quot; as Web
+    rectangle &quot;EJB Container\n(Enterprise Beans)&quot; as EJB
+    rectangle &quot;Java EE Services\n(JTA, JMS, JPA, etc.)&quot; as EE
+}
+
+database &quot;Database&quot; as DB
+
+Internet --&gt; Connector
+Connector --&gt; Web
+Web --&gt; EJB
+EJB --&gt; EE
+EE --&gt; DB
+&#64;enduml"/>
+
+</object></p>
+<p>Az architektúra elemei és kapcsolódásuk:</p>
+<ul class="simple">
+<li><p><strong>Internet</strong>: Klienskérések forrása.</p></li>
+<li><p><strong>HTTP Connector</strong>: A Geronimo szerver HTTP-kapcsolati pontja.</p></li>
+<li><p><strong>Geronimo Server</strong>: Szerverkomponens, mely az alábbiakat tartalmazza:</p>
+<ul>
+<li><p><strong>Web Container (Servlets, JSP)</strong>: Kezeli a webes komponenseket.</p></li>
+<li><p><strong>EJB Container (Enterprise Beans)</strong>: Kezeli az üzleti logikát tartalmazó Enterprise Beans komponenseket.</p></li>
+<li><p><strong>Java EE Services (JTA, JMS, JPA, stb.)</strong>: Szolgáltatásokat nyújt.</p></li>
+</ul>
+</li>
+<li><p><strong>Database</strong>: Az adatbázis backend.</p></li>
+</ul>
+<p><strong>Kapcsolatok:</strong></p>
+<ul class="simple">
+<li><p>Az <strong>Internet</strong> kapcsolatot létesít a HTTP Connectorral.</p></li>
+<li><p>A Connector továbbítja a kéréseket a <strong>Web Containernek</strong>.</p></li>
+<li><p>A Web Container kommunikál az <strong>EJB Containerrel</strong>, amely a Java EE szolgáltatásokat használja.</p></li>
+<li><p>A Java EE szolgáltatások kapcsolatban állnak az <strong>adatbázissal</strong>.</p></li>
+</ul>
+</section>
+<section id="wildfly-jboss-eap-architekturaja">
+<h3>WildFly (JBoss EAP) architektúrája<a class="headerlink" href="#wildfly-jboss-eap-architekturaja" title="Link to this heading"></a></h3>
+<p class="plantuml">
+<object data="../_images/plantuml-a70a61436370fbe34cfee46153163e349d329765.svg" type="image/svg+xml" style="width:542px;height:513px;background:#FFFFFF;">
+<img src="../_images/plantuml-a70a61436370fbe34cfee46153163e349d329765.png" alt="&#64;startuml
+skinparam style strictuml
+skinparam shadowing true
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+cloud &quot;Internet&quot; as Internet
+
+rectangle &quot;HTTP Connector\n(Undertow)&quot; as Connector
+
+node &quot;WildFly Server&quot; {
+    rectangle &quot;Management Console\n/ CLI&quot; as Management
+    rectangle &quot;Web Subsystem\n(Servlets, JSP)&quot; as WebSubsystem
+    rectangle &quot;EJB Container&quot; as EJBContainer
+    rectangle &quot;Messaging Subsystem\n(JMS)&quot; as Messaging
+}
+
+database &quot;Database&quot; as DB
+
+Internet --&gt; Connector
+Connector --&gt; WebSubsystem
+Connector --&gt; EJBContainer
+Connector --&gt; Messaging
+WebSubsystem --&gt; DB
+EJBContainer --&gt; DB
+Messaging --&gt; DB
+Management --&gt; WebSubsystem
+Management --&gt; EJBContainer
+&#64;enduml"/>
+
+</object></p>
+<p>Az architektúra elemei és kapcsolódásuk:</p>
+<ul class="simple">
+<li><p><strong>Internet</strong>: Klienskérések forrása.</p></li>
+<li><p><strong>HTTP Connector (Undertow)</strong>: WildFly által használt HTTP kapcsolatkezelő.</p></li>
+<li><p><strong>WildFly Server</strong>: Fő szerver komponens, mely a következő alrendszereket tartalmazza:</p>
+<ul>
+<li><p><strong>Management Console / CLI</strong>: Adminisztrációs felület és parancssoros kliens.</p></li>
+<li><p><strong>Web Subsystem (Servlets, JSP)</strong>: Webalkalmazások kiszolgálása.</p></li>
+<li><p><strong>EJB Container</strong>: Enterprise Beans kezelés.</p></li>
+<li><p><strong>Messaging Subsystem (JMS)</strong>: Üzenetküldési szolgáltatások.</p></li>
+</ul>
+</li>
+<li><p><strong>Database</strong>: Adatbázis backend.</p></li>
+</ul>
+<p><strong>Kapcsolatok:</strong></p>
+<ul class="simple">
+<li><p>Az <strong>Internet</strong> a Connectoron keresztül kapcsolódik a Web Subsystemhez, EJB Containerhez és Messaginghez.</p></li>
+<li><p>Mindhárom komponens kapcsolódik az adatbázishoz.</p></li>
+<li><p>A Management Console/CLI kapcsolatban áll a Web Subsystemmel és az EJB Containerral az adminisztráció során.</p></li>
+</ul>
+</section>
+<section id="oracle-weblogic-architekturaja">
+<h3>Oracle WebLogic architektúrája<a class="headerlink" href="#oracle-weblogic-architekturaja" title="Link to this heading"></a></h3>
+<p class="plantuml">
+<object data="../_images/plantuml-47973c9689a0e345fff53be0a9e2490ef7529d34.svg" type="image/svg+xml" style="width:296px;height:610px;background:#FFFFFF;">
+<img src="../_images/plantuml-47973c9689a0e345fff53be0a9e2490ef7529d34.png" alt="&#64;startuml
+skinparam style strictuml
+skinparam shadowing true
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+cloud &quot;Internet&quot; as Internet
+
+rectangle &quot;HTTP Channel&quot; as HTTPChannel
+
+node &quot;WebLogic Server&quot; {
+    rectangle &quot;Web Container\n(Servets, JSP)&quot; as WebContainer
+    rectangle &quot;Application Runtime\n(EJB, JMS, JPA)&quot; as AppRuntime
+    rectangle &quot;Security &amp; Transactions&quot; as SecTran
+}
+
+folder &quot;Admin Server&quot; as Admin
+database &quot;Database&quot; as DB
+
+Internet --&gt; HTTPChannel
+HTTPChannel --&gt; WebContainer
+WebContainer --&gt; AppRuntime
+AppRuntime --&gt; SecTran
+SecTran --&gt; DB
+Admin --&gt; WebContainer
+Admin --&gt; AppRuntime
+&#64;enduml"/>
+
+</object></p>
+<p>Az architektúra elemei és kapcsolódásuk:</p>
+<ul class="simple">
+<li><p><strong>Internet</strong>: Klienskérések forrása.</p></li>
+<li><p><strong>HTTP Channel</strong>: WebLogic HTTP kapcsolatpontja.</p></li>
+<li><p><strong>WebLogic Server</strong>: Szerverkomponens, amely tartalmazza:</p>
+<ul>
+<li><p><strong>Web Container (Servlets, JSP)</strong>: Webkomponensek kezelése.</p></li>
+<li><p><strong>Application Runtime (EJB, JMS, JPA)</strong>: Alkalmazásfutási környezet.</p></li>
+<li><p><strong>Security &amp; Transactions</strong>: Biztonsági és tranzakciókezelési komponens.</p></li>
+</ul>
+</li>
+<li><p><strong>Admin Server</strong>: Adminisztrációs komponens.</p></li>
+<li><p><strong>Database</strong>: Adatbázis backend.</p></li>
+</ul>
+<p><strong>Kapcsolatok:</strong></p>
+<ul class="simple">
+<li><p>Az <strong>Internet</strong> a HTTP Channelon keresztül érkezik.</p></li>
+<li><p>A HTTP Channel továbbítja a kéréseket a Web Containernek.</p></li>
+<li><p>A Web Container kommunikál az Application Runtime komponenssel.</p></li>
+<li><p>Az Application Runtime kapcsolódik a Security &amp; Transactions komponenshez.</p></li>
+<li><p>Ez utóbbi kapcsolatban áll az adatbázissal.</p></li>
+<li><p>Az Admin Server az adminisztráció során kapcsolódik a Web Containerhez és az Application Runtime-hoz.</p></li>
+</ul>
+</section>
+<section id="ibm-websphere-architekturaja">
+<h3>IBM WebSphere architektúrája<a class="headerlink" href="#ibm-websphere-architekturaja" title="Link to this heading"></a></h3>
+<p class="plantuml">
+<object data="../_images/plantuml-604f64957f69b38bffe1b094c4c9fdf09b2ce364.svg" type="image/svg+xml" style="width:327px;height:627px;background:#FFFFFF;">
+<img src="../_images/plantuml-604f64957f69b38bffe1b094c4c9fdf09b2ce364.png" alt="&#64;startuml
+skinparam style strictuml
+skinparam shadowing true
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+cloud &quot;Internet&quot; as Internet
+
+rectangle &quot;HTTP Endpoint&quot; as HTTPSrv
+
+node &quot;WebSphere Server&quot; {
+    rectangle &quot;Web Container\n(Servlets, JSP, JSF)&quot; as WebContainer
+    rectangle &quot;Business Logic\n(EJB, CDI)&quot; as BusinessLogic
+    rectangle &quot;Integration Services\n(JMS, JPA, JTA)&quot; as Integration
+}
+
+folder &quot;Admin Console&quot; as Admin
+database &quot;Database&quot; as DB
+
+Internet --&gt; HTTPSrv
+HTTPSrv --&gt; WebContainer
+WebContainer --&gt; BusinessLogic
+BusinessLogic --&gt; Integration
+Integration --&gt; DB
+Admin --&gt; WebContainer
+Admin --&gt; BusinessLogic
+&#64;enduml"/>
+
+</object></p>
+<p>Az architektúra elemei és kapcsolódásuk:</p>
+<ul class="simple">
+<li><p><strong>Internet</strong>: Külső kérések forrása.</p></li>
+<li><p><strong>HTTP Endpoint</strong>: WebSphere HTTP kapcsolatkezelő komponense.</p></li>
+<li><p><strong>WebSphere Server</strong>: Szerverkomponens, amely a következő részekből áll:</p>
+<ul>
+<li><p><strong>Web Container (Servlets, JSP, JSF)</strong>: Webkomponensek kezelése.</p></li>
+<li><p><strong>Business Logic (EJB, CDI)</strong>: Üzleti logika kezelése.</p></li>
+<li><p><strong>Integration Services (JMS, JPA, JTA)</strong>: Integrációs szolgáltatások.</p></li>
+</ul>
+</li>
+<li><p><strong>Admin Console</strong>: Adminisztrációs felület.</p></li>
+<li><p><strong>Database</strong>: Adatbázis backend.</p></li>
+</ul>
+<p><strong>Kapcsolatok:</strong></p>
+<ul class="simple">
+<li><p>Az <strong>Internet</strong> a HTTP Endpointon keresztül érkezik.</p></li>
+<li><p>A HTTP Endpoint továbbítja a kéréseket a Web Containernek.</p></li>
+<li><p>A Web Container továbbítja azokat az üzleti logikát kezelő komponensnek.</p></li>
+<li><p>Az üzleti logika kapcsolatban áll az integrációs szolgáltatásokkal.</p></li>
+<li><p>Az integrációs szolgáltatások kapcsolódnak az adatbázishoz.</p></li>
+<li><p>Az Admin Console kapcsolódik a Web Containerhez és az üzleti logikához.</p></li>
+</ul>
+</section>
+</section>
+<section id="konfiguracios-lehetosegek-pl-limitek-cache-meretek">
+<h2>Konfigurációs lehetőségek (pl.: limitek, cache méretek)<a class="headerlink" href="#konfiguracios-lehetosegek-pl-limitek-cache-meretek" title="Link to this heading"></a></h2>
+<section id="eclipse-jetty">
+<h3>Eclipse Jetty<a class="headerlink" href="#eclipse-jetty" title="Link to this heading"></a></h3>
+<p>Jetty konfigurációját XML fájlokon keresztül vagy programozott módon is meg lehet adni. A fő konfigurációs fájl a <cite>jetty.xml</cite>.</p>
+<p><strong>Főbb konfigurációs lehetőségek:</strong></p>
+<ul class="simple">
+<li><p><strong>Thread pool</strong>: maxThreads, minThreads, idleTimeout</p></li>
+<li><p><strong>Request buffer size</strong>, response buffer size</p></li>
+<li><p><strong>Session cache és timeout</strong></p></li>
+</ul>
+<p><strong>Példa:</strong></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Configure</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Server&quot;</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;org.eclipse.jetty.server.Server&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Set</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThreadPool&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;New</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;org.eclipse.jetty.util.thread.QueuedThreadPool&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;Set</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;minThreads&quot;</span><span class="nt">&gt;</span>10<span class="nt">&lt;/Set&gt;</span>
+<span class="w">            </span><span class="nt">&lt;Set</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;maxThreads&quot;</span><span class="nt">&gt;</span>200<span class="nt">&lt;/Set&gt;</span>
+<span class="w">            </span><span class="nt">&lt;Set</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;idleTimeout&quot;</span><span class="nt">&gt;</span>60000<span class="nt">&lt;/Set&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/New&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Set&gt;</span>
+<span class="nt">&lt;/Configure&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="glassfish">
+<h3>GlassFish<a class="headerlink" href="#glassfish" title="Link to this heading"></a></h3>
+<p>GlassFish esetén a konfiguráció az admin konzolon keresztül vagy az <cite>domain.xml</cite> fájlban történik.</p>
+<p><strong>Főbb konfigurációk:</strong></p>
+<ul class="simple">
+<li><p><strong>Thread pool limit</strong>: <cite>max-thread-pool-size</cite>, <cite>min-thread-pool-size</cite></p></li>
+<li><p><strong>HTTP listener tuning</strong></p></li>
+<li><p><strong>JVM memória beállítások</strong></p></li>
+<li><p><strong>Cache méretek (pl. EJB, JMS, Web)</strong></p></li>
+</ul>
+<p><strong>Példa (domain.xml):</strong></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;thread-pool</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;http-thread-pool&quot;</span><span class="w"> </span><span class="na">max-thread-pool-size=</span><span class="s">&quot;200&quot;</span><span class="w"> </span><span class="na">min-thread-pool-size=</span><span class="s">&quot;10&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="apache-tomcat">
+<h3>Apache Tomcat<a class="headerlink" href="#apache-tomcat" title="Link to this heading"></a></h3>
+<p>Tomcat konfigurációja főként a <cite>server.xml</cite> és <cite>web.xml</cite> fájlokban történik.</p>
+<p><strong>Főbb beállítások:</strong></p>
+<ul class="simple">
+<li><p><strong>Connector szálkezelés</strong>: <cite>maxThreads</cite>, <cite>minSpareThreads</cite></p></li>
+<li><p><strong>Session timeout és cache</strong></p></li>
+<li><p><strong>JVM heap, PermGen, metaspace méretek</strong></p></li>
+</ul>
+<p><strong>Példa (server.xml):</strong></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Connector</span><span class="w"> </span><span class="na">port=</span><span class="s">&quot;8080&quot;</span><span class="w"> </span><span class="na">protocol=</span><span class="s">&quot;HTTP/1.1&quot;</span>
+<span class="w">           </span><span class="na">connectionTimeout=</span><span class="s">&quot;20000&quot;</span>
+<span class="w">           </span><span class="na">redirectPort=</span><span class="s">&quot;8443&quot;</span>
+<span class="w">           </span><span class="na">maxThreads=</span><span class="s">&quot;150&quot;</span>
+<span class="w">           </span><span class="na">minSpareThreads=</span><span class="s">&quot;25&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="apache-geronimo">
+<h3>Apache Geronimo<a class="headerlink" href="#apache-geronimo" title="Link to this heading"></a></h3>
+<p>Geronimo konfigurációja XML fájlokon keresztül (pl. <cite>config.xml</cite>) és admin konzolon keresztül végezhető.</p>
+<p><strong>Főbb beállítások:</strong></p>
+<ul class="simple">
+<li><p><strong>Thread pool</strong> és <strong>queue</strong> limitek</p></li>
+<li><p><strong>Caching</strong> beállítások (GBeans)</p></li>
+<li><p><strong>Web konténer tuning</strong></p></li>
+</ul>
+<p><strong>Példa (részlet):</strong></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gbean</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ThreadPool&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;attribute</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;coreThreads&quot;</span><span class="nt">&gt;</span>10<span class="nt">&lt;/attribute&gt;</span>
+<span class="w">    </span><span class="nt">&lt;attribute</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;maxThreads&quot;</span><span class="nt">&gt;</span>200<span class="nt">&lt;/attribute&gt;</span>
+<span class="nt">&lt;/gbean&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="red-hat-jboss-wildfly">
+<h3>Red Hat JBoss / WildFly<a class="headerlink" href="#red-hat-jboss-wildfly" title="Link to this heading"></a></h3>
+<p>WildFly (korábban JBoss AS) konfigurációja a <cite>standalone.xml</cite> vagy <cite>domain.xml</cite> fájlban történik.</p>
+<p><strong>Főbb konfigurációk:</strong></p>
+<ul class="simple">
+<li><p><strong>Thread pool</strong>: <cite>max-threads</cite>, <cite>core-threads</cite></p></li>
+<li><p><strong>Connection pool méretek</strong></p></li>
+<li><p><strong>JVM heap és GC beállítások</strong></p></li>
+<li><p><strong>Web és EJB cache</strong></p></li>
+</ul>
+<p><strong>Példa:</strong></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;subsystem</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:threads:1.1&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;thread-pool</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;max-threads</span><span class="w"> </span><span class="na">count=</span><span class="s">&quot;200&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;core-threads</span><span class="w"> </span><span class="na">count=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/thread-pool&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="oracle-weblogic">
+<h3>Oracle WebLogic<a class="headerlink" href="#oracle-weblogic" title="Link to this heading"></a></h3>
+<p>WebLogic Server beállításai a WebLogic Console-on vagy <cite>config.xml</cite> fájlban történnek.</p>
+<p><strong>Főbb konfigurációk:</strong></p>
+<ul class="simple">
+<li><p><strong>Execute thread count</strong></p></li>
+<li><p><strong>Work Manager beállítások</strong></p></li>
+<li><p><strong>Cache tuning (Web, EJB)</strong></p></li>
+<li><p><strong>Connection pool size</strong></p></li>
+</ul>
+</section>
+<section id="ibm-websphere">
+<h3>IBM WebSphere<a class="headerlink" href="#ibm-websphere" title="Link to this heading"></a></h3>
+<p>WebSphere esetén a konfiguráció elsősorban az adminisztrációs konzolon (Admin Console) keresztül történik, de lehetőség van szkriptelésre is (wsadmin).</p>
+<p><strong>Főbb konfigurációk:</strong></p>
+<ul class="simple">
+<li><p><strong>Thread pool méretek (WebContainer, ORB, JMS, stb.)</strong></p></li>
+<li><p><strong>Cache méretek (Web, dynacache)</strong></p></li>
+<li><p><strong>Session és connection pool beállítások</strong></p></li>
+</ul>
+</section>
+</section>
+<section id="naplozas">
+<h2>Naplózás<a class="headerlink" href="#naplozas" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3>Eclipse Jetty<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Jetty a Java util logging (JUL) rendszert, vagy külső SLF4J/Logback könyvtárakat támogat.</p>
+<p><strong>Főbb jellemzők:</strong></p>
+<ul class="simple">
+<li><p><cite>start.ini</cite> vagy <cite>jetty-logging.properties</cite> fájlban konfigurálható</p></li>
+<li><p>Támogatja a <cite>Slf4jBridgeHandler</cite> használatát is</p></li>
+</ul>
+<p><strong>Példa:</strong></p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">org.eclipse.jetty.LEVEL</span><span class="o">=</span><span class="s">INFO</span>
+<span class="na">org.eclipse.jetty.util.log.class</span><span class="o">=</span><span class="s">org.eclipse.jetty.util.log.StdErrLog</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>GlassFish<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>GlassFish a Java Logging (JUL) rendszert használja, amit a <cite>logging.properties</cite> fájl szabályoz.</p>
+<p><strong>Konfiguráció:</strong></p>
+<ul class="simple">
+<li><p><cite>domain-dir/config/logging.properties</cite></p></li>
+<li><p>Admin Console-ból is módosítható</p></li>
+<li><p>Logfájlok: <cite>server.log</cite>, <cite>error.log</cite></p></li>
+</ul>
+<p><strong>Példa:</strong></p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">com.sun.enterprise.server.logging.GFFileHandler.level</span><span class="o">=</span><span class="s">FINE</span>
+<span class="na">java.util.logging.ConsoleHandler.level</span><span class="o">=</span><span class="s">WARNING</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>Apache Tomcat<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>Tomcat a JUL-t és a <cite>org.apache.juli</cite> kiterjesztést használja.</p>
+<p><strong>Konfiguráció:</strong></p>
+<ul class="simple">
+<li><p><cite>logging.properties</cite> a <cite>conf/</cite> mappában</p></li>
+<li><p>Alternatíva: SLF4J + Logback</p></li>
+</ul>
+<p><strong>Példa:</strong></p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">1catalina.org.apache.juli.FileHandler.level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">FINE</span>
+<span class="na">2localhost.org.apache.juli.FileHandler.directory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">${catalina.base}/logs</span>
+<span class="na">java.util.logging.ConsoleHandler.level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">INFO</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Apache Geronimo<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>Geronimo az Apache Commons Logging-et (JCL) használja SLF4J vagy Log4j hátérrel.</p>
+<p><strong>Beállítás:</strong></p>
+<ul class="simple">
+<li><p><cite>var/log/server.log</cite></p></li>
+<li><p>Konfigurációs fájl: <cite>log4j.xml</cite> vagy <cite>log4j.properties</cite></p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>Red Hat JBoss / WildFly<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>WildFly egy saját fejlesztésű loggolási alrendszert használ, amely SLF4J, Log4j és JUL átjárókat is tartalmaz.</p>
+<p><strong>Konfiguráció:</strong></p>
+<ul class="simple">
+<li><p><cite>standalone.xml</cite> vagy CLI (Command Line Interface)</p></li>
+<li><p>Több handler, filter, formatter állítható be</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>Oracle WebLogic<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>WebLogic a saját <cite>WebLogic Logging Services</cite> rendszert használja, de kompatibilis a Java Logging API-val.</p>
+<p><strong>Naplók:</strong></p>
+<ul class="simple">
+<li><p><cite>AdminServer.log</cite>, <cite>ManagedServer.log</cite>, <cite>domain.log</cite></p></li>
+</ul>
+<p><strong>Beállítások:</strong></p>
+<ul class="simple">
+<li><p>WebLogic Console → <cite>Servers → Logging</cite></p></li>
+<li><p>Támogatja: stdout, rotating file, SNMP forwarding</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>IBM WebSphere<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>WebSphere a <cite>High Performance Extensible Logging (HPEL)</cite> rendszert használja.</p>
+<p><strong>Főbb naplók:</strong></p>
+<ul class="simple">
+<li><p><cite>SystemOut.log</cite>, <cite>SystemErr.log</cite></p></li>
+<li><p>HPEL vagy klasszikus mód (váltható)</p></li>
+</ul>
+<p><strong>Konfiguráció:</strong></p>
+<ul class="simple">
+<li><p>Admin Console → <cite>Troubleshooting → Logs and trace</cite></p></li>
+<li><p>CLI (<cite>wsadmin</cite>) is használható</p></li>
+</ul>
+</section>
+</section>
+<section id="kodmetrikak-egyaltalan-melyik-mekkora-meretu-szoftver-feldolgozas-alatt">
+<h2>Kódmetrikák (Egyáltalán melyik mekkora méretű szoftver?) [Feldolgozás alatt…]<a class="headerlink" href="#kodmetrikak-egyaltalan-melyik-mekkora-meretu-szoftver-feldolgozas-alatt" title="Link to this heading"></a></h2>
+<p>A különböző alkalmazásszerverekhez készült mintaalkalmazások méretének összehasonlításához a
+<a class="reference external" href="https://github.com/AlDanial/cloc">cloc</a> nevű eszközt használtam, amely különböző programozási nyelvekben
+írt kódok sorainak számát méri.</p>
+<p>Az alábbi táblázat a Hello World típusú alkalmazások kódsorainak számát mutatja:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Alkalmazás</p></th>
+<th class="head"><p>Java fájlok</p></th>
+<th class="head"><p>Java kódsor</p></th>
+<th class="head"><p>XML kódsor</p></th>
+<th class="head"><p>Összes kódsor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jetty (Hello World)</p></td>
+<td><p>2</p></td>
+<td><p>36</p></td>
+<td><p>14</p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-odd"><td><p>Glassfish (Hello World)</p></td>
+<td><p>1</p></td>
+<td><p>14</p></td>
+<td><p>15</p></td>
+<td><p>29</p></td>
+</tr>
+<tr class="row-even"><td><p>Tomcat (Hello World)</p></td>
+<td><p>1</p></td>
+<td><p>14</p></td>
+<td><p>15</p></td>
+<td><p>29</p></td>
+</tr>
+<tr class="row-odd"><td><p>Wildfly (Hello World)</p></td>
+<td><p>1</p></td>
+<td><p>13</p></td>
+<td><p>14</p></td>
+<td><p>27</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Alkalmazás</p></th>
+<th class="head"><p>Java fájlok</p></th>
+<th class="head"><p>Java kódsor</p></th>
+<th class="head"><p>XML kódsor</p></th>
+<th class="head"><p>Összes kódsor</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jetty (REST)</p></td>
+<td><p>2</p></td>
+<td><p>64</p></td>
+<td><p>0</p></td>
+<td><p>64</p></td>
+</tr>
+<tr class="row-odd"><td><p>Glassfish (REST)</p></td>
+<td><p>2</p></td>
+<td><p>40</p></td>
+<td><p>0</p></td>
+<td><p>40</p></td>
+</tr>
+<tr class="row-even"><td><p>Tomcat (REST)</p></td>
+<td><p>1</p></td>
+<td><p>28</p></td>
+<td><p>15</p></td>
+<td><p>43</p></td>
+</tr>
+<tr class="row-odd"><td><p>Wildfly (REST)</p></td>
+<td><p>2</p></td>
+<td><p>33</p></td>
+<td><p>14</p></td>
+<td><p>47</p></td>
+</tr>
+</tbody>
+</table>
+<p>A mérések során az alábbi egyszerű parancsot használtam:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cloc<span class="w"> </span>path/to/project/src
+</pre></div>
+</div>
+<p>Ez a metrika segít felmérni az egyes példák összetettségét és terjedelmét. A későbbi metrikákhoz, mint például metódusok
+száma, osztályok közötti függőségek stb., további eszközöket vetettem be (lásd lentebb).</p>
+</section>
+</section>
+<section id="jetty-rest-alkalmazas-kodelemzes">
+<h1>Jetty REST alkalmazás - Kódelemzés<a class="headerlink" href="#jetty-rest-alkalmazas-kodelemzes" title="Link to this heading"></a></h1>
+<section id="osztalyok-es-metodusok">
+<h2>Osztályok és metódusok<a class="headerlink" href="#osztalyok-es-metodusok" title="Link to this heading"></a></h2>
+<p>A Jetty alapú REST-es mintaalkalmazás két Java osztályból áll:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Main</span></code> – a szerver indítását végzi</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RestServlet</span></code> – a HTTP kérések kezeléséért felelős</p></li>
+</ul>
+<p>Az osztályokban található metódusok:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Osztály</p></th>
+<th class="head"><p>Metódus neve</p></th>
+<th class="head"><p>Paraméterek száma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Main</p></td>
+<td><p>main</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>RestServlet</p></td>
+<td><p>readRequestBody</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>RestServlet</p></td>
+<td><p>doGet</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>RestServlet</p></td>
+<td><p>doPost</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>RestServlet</p></td>
+<td><p>doPut</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>RestServlet</p></td>
+<td><p>doDelete</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="metodusok-rovid-leirasa">
+<h2>Metódusok rövid leírása<a class="headerlink" href="#metodusok-rovid-leirasa" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">main</span></code>: Jetty szerver indítása a 8080-as porton.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">readRequestBody</span></code>: Bejövő kérés (request) törzsét olvassa ki.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doGet</span></code>: Egyszerű JSON válasz GET kérésre.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doPost</span></code>: A POST kérés törzsét visszaküldi JSON formátumban.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doPut</span></code>: PUT kérés esetén „frissített” válasz JSON-ben.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doDelete</span></code>: Törlés visszajelzése JSON válasszal.</p></li>
+</ul>
+</section>
+<section id="osszesites">
+<h2>Összesítés<a class="headerlink" href="#osszesites" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Osztályok száma: 2</p></li>
+<li><p>Összes metódus: 6</p></li>
+<li><p>Paraméterek száma összesen: 11</p></li>
+</ul>
+</section>
+</section>
+<section id="glassfish-rest-alkalmazas-kodelemzes">
+<h1>GlassFish REST alkalmazás - Kódelemzés<a class="headerlink" href="#glassfish-rest-alkalmazas-kodelemzes" title="Link to this heading"></a></h1>
+<section id="id8">
+<h2>Osztályok és metódusok<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<p>A GlassFish alapú REST mintaalkalmazás két Java osztályból áll:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HelloResource</span></code> – a REST erőforrás osztály, HTTP metódusokat definiál</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RestApplication</span></code> – a JAX-RS alkalmazás konfigurációs osztálya (API útvonal beállítása)</p></li>
+</ul>
+<p>Az osztályokban található metódusok:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Osztály</p></th>
+<th class="head"><p>Metódus neve</p></th>
+<th class="head"><p>Paraméterek száma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>HelloResource</p></td>
+<td><p>getHello</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>HelloResource</p></td>
+<td><p>postHello</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>HelloResource</p></td>
+<td><p>putHello</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>HelloResource</p></td>
+<td><p>deleteHello</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>RestApplication</p></td>
+<td><p>(nincs metódus)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id9">
+<h2>Metódusok rövid leírása<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">getHello</span></code>: GET kérés kezelése, JSON válasz küldése.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postHello</span></code>: POST kérés fogadása JSON formátumban, visszaküldött JSON válasz.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">putHello</span></code>: PUT kérés fogadása JSON formátumban, frissítés visszajelzése JSON-ben.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deleteHello</span></code>: DELETE kérés kezelése, törlés visszajelzése JSON válasszal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RestApplication</span></code>: Az alkalmazás API alapútvonalának (/api) beállítása.</p></li>
+</ul>
+</section>
+<section id="id10">
+<h2>Összesítés<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Osztályok száma: 2</p></li>
+<li><p>Összes metódus: 4</p></li>
+<li><p>Paraméterek száma összesen: 2</p></li>
+</ul>
+</section>
+</section>
+<section id="tomcat-rest-alkalmazas-kodelemzes">
+<h1>Tomcat REST alkalmazás - Kódelemzés<a class="headerlink" href="#tomcat-rest-alkalmazas-kodelemzes" title="Link to this heading"></a></h1>
+<section id="id11">
+<h2>Osztályok és metódusok<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<p>A Tomcat alapú REST mintaalkalmazás egyetlen Java osztályból áll:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">RestServlet</span></code> – a HttpServlet leszármazottja, amely kezeli a HTTP metódusokat</p></li>
+</ul>
+<p>Az osztályban található metódusok:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Osztály</p></th>
+<th class="head"><p>Metódus neve</p></th>
+<th class="head"><p>Paraméterek száma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RestServlet</p></td>
+<td><p>doGet</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>RestServlet</p></td>
+<td><p>doPost</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>RestServlet</p></td>
+<td><p>doPut</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>RestServlet</p></td>
+<td><p>doDelete</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id12">
+<h2>Metódusok rövid leírása<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">doGet</span></code>: GET kérés kezelése, JSON válasz küldése.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doPost</span></code>: POST kérés kezelése, egyszerű JSON válasz.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doPut</span></code>: PUT kérés kezelése, egyszerű JSON válasz.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doDelete</span></code>: DELETE kérés kezelése, egyszerű JSON válasz.</p></li>
+</ul>
+</section>
+<section id="id13">
+<h2>Összesítés<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Osztályok száma: 1</p></li>
+<li><p>Összes metódus: 4</p></li>
+<li><p>Paraméterek száma összesen: 8 (minden metódus 2 paramétert fogad)</p></li>
+</ul>
+</section>
+</section>
+<section id="wildfly-rest-alkalmazas-kodelemzes">
+<h1>WildFly REST alkalmazás - Kódelemzés<a class="headerlink" href="#wildfly-rest-alkalmazas-kodelemzes" title="Link to this heading"></a></h1>
+<section id="id14">
+<h2>Osztályok és metódusok<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
+<p>A WildFly alapú REST mintaalkalmazás két Java osztályból áll:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HelloResource</span></code> – REST erőforrás osztály, amely a HTTP metódusokat kezeli</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RestApplication</span></code> – alkalmazás konfigurációs osztály, a JAX-RS alkalmazás megjelölésére</p></li>
+</ul>
+<p>A <code class="docutils literal notranslate"><span class="pre">HelloResource</span></code> osztály metódusai:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Osztály</p></th>
+<th class="head"><p>Metódus</p></th>
+<th class="head"><p>Paraméterek száma</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>HelloResource</p></td>
+<td><p>get</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>HelloResource</p></td>
+<td><p>post</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>HelloResource</p></td>
+<td><p>put</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>HelloResource</p></td>
+<td><p>delete</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id15">
+<h2>Metódusok rövid leírása<a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get</span></code>: GET kérés kezelése, JSON válasz visszaadása.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">post</span></code>: POST kérés kezelése, JSON formátumú bemeneti adat fogadása és válasz küldése.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">put</span></code>: PUT kérés kezelése, JSON formátumú bemeneti adat fogadása és válasz küldése.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete</span></code>: DELETE kérés kezelése, JSON válasz küldése.</p></li>
+</ul>
+</section>
+<section id="id16">
+<h2>Összesítés<a class="headerlink" href="#id16" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Osztályok száma: 2</p></li>
+<li><p>Összes metódus: 4</p></li>
+<li><p>Paraméterek száma összesen: 2</p></li>
+</ul>
+<p class="plantuml">
+<object data="../_images/plantuml-02d9db08f0609e38e8ebcf82ffca4ad827766c4c.svg" type="image/svg+xml" style="width:471px;height:409px;background:#FFFFFF;">
+<img src="../_images/plantuml-02d9db08f0609e38e8ebcf82ffca4ad827766c4c.png" alt="&#64;startuml
+class Main {
+  +main(String[] args)
+}
+
+class RestServlet {
+  -readRequestBody(HttpServletRequest req): String
+  +doGet(HttpServletRequest req, HttpServletResponse resp)
+  +doPost(HttpServletRequest req, HttpServletResponse resp)
+  +doPut(HttpServletRequest req, HttpServletResponse resp)
+  +doDelete(HttpServletRequest req, HttpServletResponse resp)
+}
+
+Main --&gt; RestServlet : használja
+RestServlet ..&gt; HttpServletRequest : használja
+RestServlet ..&gt; HttpServletResponse : használja
+
+&#64;enduml"/>
+
+</object></p>
+<p class="plantuml">
+<object data="../_images/plantuml-0a7bd24f658248d50dd302565952000fe519880e.svg" type="image/svg+xml" style="width:442px;height:599px;background:#FFFFFF;">
+<img src="../_images/plantuml-0a7bd24f658248d50dd302565952000fe519880e.png" alt="&#64;startuml
+class HelloResource {
+  +getHello(): String
+  +postHello(String data): String
+  +putHello(String data): String
+  +deleteHello(): String
+}
+
+class RestApplication {
+}
+
+RestApplication ..|&gt; jakarta.ws.rs.core.Application
+HelloResource ..&gt; jakarta.ws.rs.core.MediaType : használja
+HelloResource --&gt; RestApplication : része
+
+&#64;enduml"/>
+
+</object></p>
+<p class="plantuml">
+<object data="../_images/plantuml-85b21aee3d0a61205c1ae8c0b6e955e259ed6363.svg" type="image/svg+xml" style="width:525px;height:423px;background:#FFFFFF;">
+<img src="../_images/plantuml-85b21aee3d0a61205c1ae8c0b6e955e259ed6363.png" alt="&#64;startuml
+class RestServlet {
+  +doGet(HttpServletRequest req, HttpServletResponse resp)
+  +doPost(HttpServletRequest req, HttpServletResponse resp)
+  +doPut(HttpServletRequest req, HttpServletResponse resp)
+  +doDelete(HttpServletRequest req, HttpServletResponse resp)
+}
+
+RestServlet ..&gt; javax.servlet.http.HttpServletRequest : használja
+RestServlet ..&gt; javax.servlet.http.HttpServletResponse : használja
+
+&#64;enduml"/>
+
+</object></p>
+<p class="plantuml">
+<object data="../_images/plantuml-131be0626c17eee32801eca34d64ca1894777dd6.svg" type="image/svg+xml" style="width:415px;height:252px;background:#FFFFFF;">
+<img src="../_images/plantuml-131be0626c17eee32801eca34d64ca1894777dd6.png" alt="&#64;startuml
+class HelloResource {
+  +get(): Response
+  +post(String body): Response
+  +put(String body): Response
+  +delete(): Response
+}
+
+class RestApplication {
+}
+
+HelloResource --&gt; Response : használja
+
+&#64;enduml"/>
+
+</object></p>
+</section>
+<section id="alkalmazasszerver-inditasi-folyamatat-megvizsgalni-folyamatabra-gantt-diagram-szekvencia-diagram-ezekhez-is-jo-hogy-ha-tartoznak-majd-meresek">
+<h2>Alkalmazásszerver indítási folyamatát megvizsgálni (folyamatábra, gantt diagram, szekvencia diagram) - Ezekhez is jó, hogy ha tartoznak majd mérések.<a class="headerlink" href="#alkalmazasszerver-inditasi-folyamatat-megvizsgalni-folyamatabra-gantt-diagram-szekvencia-diagram-ezekhez-is-jo-hogy-ha-tartoznak-majd-meresek" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Elokeszuletek.html" class="btn btn-neutral float-left" title="Előkészületek" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Meresek.html" class="btn btn-neutral float-right" title="Mérések" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Dávid Drig.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

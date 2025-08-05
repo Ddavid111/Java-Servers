@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="hu" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java szerverek összehasonlítása &mdash; Diplomamunka  dokumentáció</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=24d5f357"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=ea187aaa"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Tárgymutató" href="genindex.html" />
+    <link rel="search" title="Keresés" href="search.html" />
+    <link rel="next" title="Előkészületek" href="chapters/Elokeszuletek.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Diplomamunka
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Elokeszuletek.html">Előkészületek</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html">Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html#jetty-rest-alkalmazas-kodelemzes">Jetty REST alkalmazás - Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html#glassfish-rest-alkalmazas-kodelemzes">GlassFish REST alkalmazás - Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html#tomcat-rest-alkalmazas-kodelemzes">Tomcat REST alkalmazás - Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html#wildfly-rest-alkalmazas-kodelemzes">WildFly REST alkalmazás - Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Meresek.html">Mérések</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Diplomamunka</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Java szerverek összehasonlítása</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="java-szerverek-osszehasonlitasa">
+<h1>Java szerverek összehasonlítása<a class="headerlink" href="#java-szerverek-osszehasonlitasa" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Elokeszuletek.html">Előkészületek</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Elokeszuletek.html#gyarto-fejleszto-licensz-kiadasok">Gyártó/fejlesztő, licensz, kiadások</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#eclipse-jetty">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#eclipse-glassfish">Eclipse GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#apache-tomcat">Apache Tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#apache-geronimo">Apache Geronimo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#red-hat-jboss-wildfly">Red Hat JBoss / WildFly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#oracle-weblogic">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#ibm-websphere">IBM WebSphere</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Elokeszuletek.html#szakirodalmaknak-utananezni-hivatalos-weboldalak-referenciak-konyvek-cikkek">Szakirodalmaknak utánanézni: Hivatalos weboldalak/referenciák, könyvek, cikkek</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#hivatalos-weboldalak-es-dokumentaciok">Hivatalos weboldalak és dokumentációk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#fontos-cikkek">Fontos cikkek</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Elokeszuletek.html#verziok-verziotortenet-fejlesztesi-tortenet-elemzese">Verziók, verziótörténet (fejlesztési történet elemzése)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Elokeszuletek.html#tamogatott-java-verziok-azon-belul-java-szabvany-ezt-erdemes-lehet-peldaul-tablazatos-formaban-sorokban-feature-ok-oszlopokban-alkalmazasszerverek">Támogatott Java verziók, azon belül Java szabvány (Ezt érdemes lehet például táblázatos formában: sorokban feature-ök, oszlopokban alkalmazásszerverek.)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Elokeszuletek.html#telepitessel-kapcsolatban-beallitasok-fajlok-jegyzekek-szerkezete-merete">Telepítéssel kapcsolatban beállítások, fájlok, jegyzékek (szerkezete, mérete)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id1">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#glassfish">GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#wildfly-jboss-eap">WildFly / JBoss EAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id2">Apache Tomcat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Elokeszuletek.html#id3">Apache Geronimo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id4">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#ibm-websphere-liberty">IBM WebSphere (Liberty)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Elokeszuletek.html#fejlesztokornyezetek-egyeb-eszkozok-pl-monitorozashoz-konfiguraciohoz-eroforrasfigyeles">Fejlesztőkörnyezetek, egyéb eszközök (pl.: monitorozáshoz, konfigurációhoz, erőforrásfigyelés)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id5">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id6">GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id7">WildFly / JBoss EAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id8">Apache Tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id9">Apache Geronimo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id10">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Elokeszuletek.html#id11">IBM WebSphere (Liberty)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Elokeszuletek.html#tipikus-alkalmazasi-eseteket-rendszerezni-statikus-fajlkiszolgalas-servlet-jsf">Tipikus alkalmazási eseteket rendszerezni (statikus fájlkiszolgálás, Servlet, JSF, …)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html">Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#belso-architekturajuknak-a-felrajzolasa">Belső architekturájuknak a felrajzolása</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#jetty-architektura">Jetty architektúra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#glassfish-architektura">GlassFish architektúra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#tomcat-architekturaja">Tomcat architektúrája</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#geronimo-architekturaja">Geronimo architektúrája</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#wildfly-jboss-eap-architekturaja">WildFly (JBoss EAP) architektúrája</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#oracle-weblogic-architekturaja">Oracle WebLogic architektúrája</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#ibm-websphere-architekturaja">IBM WebSphere architektúrája</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#konfiguracios-lehetosegek-pl-limitek-cache-meretek">Konfigurációs lehetőségek (pl.: limitek, cache méretek)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#eclipse-jetty">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#glassfish">GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#apache-tomcat">Apache Tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#apache-geronimo">Apache Geronimo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#red-hat-jboss-wildfly">Red Hat JBoss / WildFly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#oracle-weblogic">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#ibm-websphere">IBM WebSphere</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#naplozas">Naplózás</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#id1">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#id2">GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#id3">Apache Tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#id4">Apache Geronimo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#id5">Red Hat JBoss / WildFly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#id6">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="chapters/Kodelemzes.html#id7">IBM WebSphere</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#kodmetrikak-egyaltalan-melyik-mekkora-meretu-szoftver-feldolgozas-alatt">Kódmetrikák (Egyáltalán melyik mekkora méretű szoftver?) [Feldolgozás alatt…]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html#jetty-rest-alkalmazas-kodelemzes">Jetty REST alkalmazás - Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#osztalyok-es-metodusok">Osztályok és metódusok</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#metodusok-rovid-leirasa">Metódusok rövid leírása</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#osszesites">Összesítés</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html#glassfish-rest-alkalmazas-kodelemzes">GlassFish REST alkalmazás - Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#id8">Osztályok és metódusok</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#id9">Metódusok rövid leírása</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#id10">Összesítés</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html#tomcat-rest-alkalmazas-kodelemzes">Tomcat REST alkalmazás - Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#id11">Osztályok és metódusok</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#id12">Metódusok rövid leírása</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#id13">Összesítés</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Kodelemzes.html#wildfly-rest-alkalmazas-kodelemzes">WildFly REST alkalmazás - Kódelemzés</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#id14">Osztályok és metódusok</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#id15">Metódusok rövid leírása</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#id16">Összesítés</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Kodelemzes.html#alkalmazasszerver-inditasi-folyamatat-megvizsgalni-folyamatabra-gantt-diagram-szekvencia-diagram-ezekhez-is-jo-hogy-ha-tartoznak-majd-meresek">Alkalmazásszerver indítási folyamatát megvizsgálni (folyamatábra, gantt diagram, szekvencia diagram) - Ezekhez is jó, hogy ha tartoznak majd mérések.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/Meresek.html">Mérések</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chapters/Meresek.html#mintaalkalmazasok-benchmark-hoz">Mintaalkalmazások benchmark-hoz</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="chapters/Elokeszuletek.html" class="btn btn-neutral float-right" title="Előkészületek" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Dávid Drig.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

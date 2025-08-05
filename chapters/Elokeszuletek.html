@@ -1,0 +1,977 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="hu" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Előkészületek &mdash; Diplomamunka  dokumentáció</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=24d5f357"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=ea187aaa"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Tárgymutató" href="../genindex.html" />
+    <link rel="search" title="Keresés" href="../search.html" />
+    <link rel="next" title="Kódelemzés" href="Kodelemzes.html" />
+    <link rel="prev" title="Java szerverek összehasonlítása" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Diplomamunka
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Előkészületek</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gyarto-fejleszto-licensz-kiadasok">Gyártó/fejlesztő, licensz, kiadások</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#eclipse-jetty">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#eclipse-glassfish">Eclipse GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apache-tomcat">Apache Tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apache-geronimo">Apache Geronimo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#red-hat-jboss-wildfly">Red Hat JBoss / WildFly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oracle-weblogic">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ibm-websphere">IBM WebSphere</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#szakirodalmaknak-utananezni-hivatalos-weboldalak-referenciak-konyvek-cikkek">Szakirodalmaknak utánanézni: Hivatalos weboldalak/referenciák, könyvek, cikkek</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hivatalos-weboldalak-es-dokumentaciok">Hivatalos weboldalak és dokumentációk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fontos-cikkek">Fontos cikkek</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#verziok-verziotortenet-fejlesztesi-tortenet-elemzese">Verziók, verziótörténet (fejlesztési történet elemzése)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tamogatott-java-verziok-azon-belul-java-szabvany-ezt-erdemes-lehet-peldaul-tablazatos-formaban-sorokban-feature-ok-oszlopokban-alkalmazasszerverek">Támogatott Java verziók, azon belül Java szabvány (Ezt érdemes lehet például táblázatos formában: sorokban feature-ök, oszlopokban alkalmazásszerverek.)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#telepitessel-kapcsolatban-beallitasok-fajlok-jegyzekek-szerkezete-merete">Telepítéssel kapcsolatban beállítások, fájlok, jegyzékek (szerkezete, mérete)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#glassfish">GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wildfly-jboss-eap">WildFly / JBoss EAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Apache Tomcat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Apache Geronimo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ibm-websphere-liberty">IBM WebSphere (Liberty)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fejlesztokornyezetek-egyeb-eszkozok-pl-monitorozashoz-konfiguraciohoz-eroforrasfigyeles">Fejlesztőkörnyezetek, egyéb eszközök (pl.: monitorozáshoz, konfigurációhoz, erőforrásfigyelés)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Eclipse Jetty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">GlassFish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">WildFly / JBoss EAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Apache Tomcat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Apache Geronimo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Oracle WebLogic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">IBM WebSphere (Liberty)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tipikus-alkalmazasi-eseteket-rendszerezni-statikus-fajlkiszolgalas-servlet-jsf">Tipikus alkalmazási eseteket rendszerezni (statikus fájlkiszolgálás, Servlet, JSF, …)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Kodelemzes.html">Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kodelemzes.html#jetty-rest-alkalmazas-kodelemzes">Jetty REST alkalmazás - Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kodelemzes.html#glassfish-rest-alkalmazas-kodelemzes">GlassFish REST alkalmazás - Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kodelemzes.html#tomcat-rest-alkalmazas-kodelemzes">Tomcat REST alkalmazás - Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kodelemzes.html#wildfly-rest-alkalmazas-kodelemzes">WildFly REST alkalmazás - Kódelemzés</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Meresek.html">Mérések</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Diplomamunka</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Előkészületek</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/chapters/Elokeszuletek.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="elokeszuletek">
+<h1>Előkészületek<a class="headerlink" href="#elokeszuletek" title="Link to this heading"></a></h1>
+<section id="gyarto-fejleszto-licensz-kiadasok">
+<h2>Gyártó/fejlesztő, licensz, kiadások<a class="headerlink" href="#gyarto-fejleszto-licensz-kiadasok" title="Link to this heading"></a></h2>
+<section id="eclipse-jetty">
+<h3>Eclipse Jetty<a class="headerlink" href="#eclipse-jetty" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztő:</strong> Eclipse Foundation</p>
+<p><strong>Licensz:</strong> Apache License 2.0</p>
+<p><strong>Főbb kiadások:</strong></p>
+<ul class="simple">
+<li><p>Jetty 9 (2013): servlet 3.1 támogatás</p></li>
+<li><p>Jetty 10 (2020): Java 11+</p></li>
+<li><p>Jetty 11 (2020): modulárisabb architektúra, Jakarta EE támogatás</p></li>
+<li><p>Jetty 12 (2023): Java 17+, Servlet 6.0</p></li>
+</ul>
+</section>
+<section id="eclipse-glassfish">
+<h3>Eclipse GlassFish<a class="headerlink" href="#eclipse-glassfish" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztő:</strong> Oracle (korábban), most Eclipse Foundation (Eclipse GlassFish)</p>
+<p><strong>Licensz:</strong> Eclipse Public License 2.0 and GPL2 with GNU Classpath Exception</p>
+<p><strong>Főbb kiadások:</strong></p>
+<ul class="simple">
+<li><p>GlassFish 4: Java EE 7</p></li>
+<li><p>GlassFish 5: Java EE 8</p></li>
+<li><p>GlassFish 6: Jakarta EE 9</p></li>
+<li><p>GlassFish 7: Jakarta EE 10 támogatás (2023)</p></li>
+</ul>
+</section>
+<section id="apache-tomcat">
+<h3>Apache Tomcat<a class="headerlink" href="#apache-tomcat" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztő:</strong> Apache Software Foundation</p>
+<p><strong>Licensz:</strong> Apache License 2.0</p>
+<p><strong>Főbb kiadások:</strong></p>
+<ul class="simple">
+<li><p>Tomcat 9.x: Servlet 4.0</p></li>
+<li><p>Tomcat 10.0.x: átállás a <cite>javax</cite> csomagról <cite>jakarta</cite>-ra</p></li>
+<li><p>Tomcat 11.0.x: támogatja a Servlet 6.1 specifikációt, valamint a Java 17 és annál újabb verziókat.</p></li>
+</ul>
+</section>
+<section id="apache-geronimo">
+<h3>Apache Geronimo<a class="headerlink" href="#apache-geronimo" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztő:</strong> Apache Software Foundation</p>
+<p><strong>Licensz:</strong> Apache License 2.0</p>
+<p><strong>Főbb kiadások:</strong></p>
+<ul class="simple">
+<li><p>Geronimo 2.x: Java EE 5 és 6 támogatás</p></li>
+<li><p>Legfrissebb kiadás 3.x (korlátozott aktivitás)</p></li>
+</ul>
+</section>
+<section id="red-hat-jboss-wildfly">
+<h3>Red Hat JBoss / WildFly<a class="headerlink" href="#red-hat-jboss-wildfly" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztők:</strong> JBoss, Red Hat</p>
+<p><strong>Licensz:</strong>    GNU Lesser General Public License</p>
+<p><strong>Főbb kiadások:</strong></p>
+<ul class="simple">
+<li><p>JBoss AS 7: utolsó kiadás a JBoss név alatt</p></li>
+<li><p>WildFly 8–30+: Java EE / Jakarta EE támogatás, Quarkus kompatibilitás</p></li>
+<li><p>WildFly 30 (2024): Jakarta EE 10, Java 21 támogatás</p></li>
+</ul>
+</section>
+<section id="oracle-weblogic">
+<h3>Oracle WebLogic<a class="headerlink" href="#oracle-weblogic" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztő:</strong> Oracle Corporation</p>
+<p><strong>Licensz:</strong> Zárt forráskódú, kereskedelmi</p>
+<p><strong>Főbb kiadások:</strong></p>
+<ul class="simple">
+<li><p>WebLogic Server 12c: Java EE 6 / 7</p></li>
+<li><p>WebLogic Server 14c: Jakarta EE 8</p></li>
+<li><p>WebLogic Server 21.x: újabb Java és Kubernetes integráció</p></li>
+</ul>
+</section>
+<section id="ibm-websphere">
+<h3>IBM WebSphere<a class="headerlink" href="#ibm-websphere" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztő:</strong> IBM</p>
+<p><strong>Licensz:</strong> Kereskedelmi</p>
+<p><strong>Főbb kiadások:</strong></p>
+<ul class="simple">
+<li><p>WebSphere Application Server (WAS): teljes Java EE implementáció</p></li>
+<li><p>WebSphere Liberty: könnyűsúlyú, modularizált szerver, Jakarta EE kompatibilis</p></li>
+</ul>
+</section>
+</section>
+<section id="szakirodalmaknak-utananezni-hivatalos-weboldalak-referenciak-konyvek-cikkek">
+<h2>Szakirodalmaknak utánanézni: Hivatalos weboldalak/referenciák, könyvek, cikkek<a class="headerlink" href="#szakirodalmaknak-utananezni-hivatalos-weboldalak-referenciak-konyvek-cikkek" title="Link to this heading"></a></h2>
+<section id="hivatalos-weboldalak-es-dokumentaciok">
+<h3>Hivatalos weboldalak és dokumentációk<a class="headerlink" href="#hivatalos-weboldalak-es-dokumentaciok" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Eclipse Jetty</strong>: <a class="reference external" href="https://www.eclipse.org/jetty/">https://www.eclipse.org/jetty/</a></p></li>
+<li><p><strong>GlassFish</strong>: <a class="reference external" href="https://projects.eclipse.org/projects/ee4j.glassfish">https://projects.eclipse.org/projects/ee4j.glassfish</a></p></li>
+<li><p><strong>Apache Tomcat</strong>: <a class="reference external" href="https://tomcat.apache.org/">https://tomcat.apache.org/</a></p></li>
+<li><p><strong>Apache Geronimo</strong>: <a class="reference external" href="https://geronimo.apache.org/">https://geronimo.apache.org/</a></p></li>
+<li><p><strong>Red Hat JBoss / WildFly</strong>:</p>
+<ul>
+<li><p><a class="reference external" href="https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform">https://access.redhat.com/products/red-hat-jboss-enterprise-application-platform</a></p></li>
+<li><p><a class="reference external" href="https://www.wildfly.org/">https://www.wildfly.org/</a></p></li>
+</ul>
+</li>
+<li><p><strong>Oracle WebLogic</strong>: <a class="reference external" href="https://www.oracle.com/middleware/technologies/weblogic.html">https://www.oracle.com/middleware/technologies/weblogic.html</a></p></li>
+<li><p><strong>IBM WebSphere</strong>: <a class="reference external" href="https://www.ibm.com/products/websphere-application-server">https://www.ibm.com/products/websphere-application-server</a></p></li>
+</ul>
+</section>
+<section id="fontos-cikkek">
+<h3>Fontos cikkek<a class="headerlink" href="#fontos-cikkek" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Áttekintés a leggyakoribb Java EE alkalmazásszerverekről, összehasonlítás funkcionalitás és teljesítmény alapján.
+<a class="reference external" href="https://medium.com/&#64;niranjangirheindia/java-ee-application-servers-tomcat-glassfish-weblogic-wildfly-73399aaa4928">https://medium.com/&#64;niranjangirheindia/java-ee-application-servers-tomcat-glassfish-weblogic-wildfly-73399aaa4928</a></p></li>
+<li><p>Részletes lista különféle alkalmazásszerverekről – nemcsak Java – rövid jellemzéssel.
+<a class="reference external" href="https://en.wikipedia.org/wiki/List_of_application_servers">https://en.wikipedia.org/wiki/List_of_application_servers</a></p></li>
+<li><p>Gyakorlati útmutató a Java Servlet-alapú webalkalmazások hatékonyabbá tételéhez.
+<a class="reference external" href="https://medium.com/&#64;youngjun_kim/optimizing-java-servlets-for-high-performance-web-applications-ce95d4e6ccaa">https://medium.com/&#64;youngjun_kim/optimizing-java-servlets-for-high-performance-web-applications-ce95d4e6ccaa</a></p></li>
+<li><p>Teljesítmény és skálázhatóság szempontú összehasonlítás több Java alkalmazásszerver között.
+<a class="reference external" href="https://www.deployhq.com/blog/comparing-java-application-servers-performance-scalability-and-deployment-strategies">https://www.deployhq.com/blog/comparing-java-application-servers-performance-scalability-and-deployment-strategies</a></p></li>
+<li><p>Mérésen alapuló riport servlet-technológiák válaszidejéről és terhelhetőségéről.
+<a class="reference external" href="https://www.webperformance.com/library/reports/ServletReport/">https://www.webperformance.com/library/reports/ServletReport/</a></p></li>
+<li><p>Oktatási célú dokumentum, részletesen tárgyalja a Java alapú webtechnológiákat, servlet, JSP, stb.
+<a class="reference external" href="https://www.ms.sapientia.ro/~manyi/teaching/java/java_web_technologiak.pdf">https://www.ms.sapientia.ro/~manyi/teaching/java/java_web_technologiak.pdf</a></p></li>
+<li><p>Jegyzet egyetemi kurzushoz, webes Java alkalmazások architektúrája, példák, módszerek.
+<a class="reference external" href="https://geik.uni-miskolc.hu/data/subjects_pdf/GEIAL333-B_Web-es_alkalmazasok_Java.pdf">https://geik.uni-miskolc.hu/data/subjects_pdf/GEIAL333-B_Web-es_alkalmazasok_Java.pdf</a></p></li>
+</ul>
+</section>
+</section>
+<section id="verziok-verziotortenet-fejlesztesi-tortenet-elemzese">
+<h2>Verziók, verziótörténet (fejlesztési történet elemzése)<a class="headerlink" href="#verziok-verziotortenet-fejlesztesi-tortenet-elemzese" title="Link to this heading"></a></h2>
+<table class="docutils align-default" id="id12">
+<caption><span class="caption-text">Alkalmazásszerverek verziótörténete</span><a class="headerlink" href="#id12" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 15.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Alkalmazásszerver</p></th>
+<th class="head"><p>Verzió</p></th>
+<th class="head"><p>Megjegyzés</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Eclipse Jetty</p></td>
+<td><p>6 (2006)</p></td>
+<td><p>Aszinkron API (Continuation)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Eclipse Jetty</p></td>
+<td><p>9 (2013)</p></td>
+<td><p>Servlet 3.1, WebSocket, HTTP/2</p></td>
+</tr>
+<tr class="row-even"><td><p>Eclipse Jetty</p></td>
+<td><p>10 (2021)</p></td>
+<td><p>Java 11+, moduláris felépítés</p></td>
+</tr>
+<tr class="row-odd"><td><p>Eclipse Jetty</p></td>
+<td><p>11 (2021)</p></td>
+<td><p><cite>jakarta</cite>, Servlet 5.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Eclipse Jetty</p></td>
+<td><p>12 (2023)</p></td>
+<td><p>Java 17+, Servlet 6.0</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>GlassFish</p></td>
+<td><p>3.x (2009)</p></td>
+<td><p>Java EE 6, moduláris architektúra (HK2)</p></td>
+</tr>
+<tr class="row-odd"><td><p>GlassFish</p></td>
+<td><p>4.x (2013)</p></td>
+<td><p>Java EE 7, WebSocket és JSON-P</p></td>
+</tr>
+<tr class="row-even"><td><p>GlassFish</p></td>
+<td><p>5.x (2017)</p></td>
+<td><p>Java EE 8</p></td>
+</tr>
+<tr class="row-odd"><td><p>GlassFish</p></td>
+<td><p>6.x (2020)</p></td>
+<td><p>Jakarta EE 9, <cite>jakarta</cite> váltás</p></td>
+</tr>
+<tr class="row-even"><td><p>GlassFish</p></td>
+<td><p>7.x (2022)</p></td>
+<td><p>Jakarta EE 10 támogatás</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Apache Tomcat</p></td>
+<td><p>8.x (2014)</p></td>
+<td><p>Servlet 3.1, non-blocking IO</p></td>
+</tr>
+<tr class="row-odd"><td><p>Apache Tomcat</p></td>
+<td><p>9.x (2018)</p></td>
+<td><p>Servlet 4.0, HTTP/2, Java 8+</p></td>
+</tr>
+<tr class="row-even"><td><p>Apache Tomcat</p></td>
+<td><p>10.x (2021)</p></td>
+<td><p><cite>jakarta</cite>, Servlet 5.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Apache Tomcat</p></td>
+<td><p>11.x (2024)</p></td>
+<td><p>Servlet 6.0, Java 21</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Apache Geronimo</p></td>
+<td><p>2.x (2008)</p></td>
+<td><p>Java EE 5/6, GBean alapú architektúra</p></td>
+</tr>
+<tr class="row-even"><td><p>Apache Geronimo</p></td>
+<td><p>3.x (2012)</p></td>
+<td><p>Java EE 6 implementáció</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>JBoss / WildFly</p></td>
+<td><p>AS 7 (2011)</p></td>
+<td><p>Gyorsabb indulás, új moduláris felépítés</p></td>
+</tr>
+<tr class="row-odd"><td><p>WildFly</p></td>
+<td><p>8 (2014)</p></td>
+<td><p>Java EE 7 támogatás, új név JBoss helyett</p></td>
+</tr>
+<tr class="row-even"><td><p>WildFly</p></td>
+<td><p>20+ (2021–)</p></td>
+<td><p>Jakarta EE 9+, Java 11/17, MicroProfile</p></td>
+</tr>
+<tr class="row-odd"><td><p>WildFly</p></td>
+<td><p>30 (2024)</p></td>
+<td><p>Jakarta EE 10, Java 21</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Oracle WebLogic</p></td>
+<td><p>12c (2012)</p></td>
+<td><p>Java EE 6–7 támogatás</p></td>
+</tr>
+<tr class="row-even"><td><p>Oracle WebLogic</p></td>
+<td><p>14c (2020)</p></td>
+<td><p>Jakarta EE 8 kompatibilitás</p></td>
+</tr>
+<tr class="row-odd"><td><p>Oracle WebLogic</p></td>
+<td><p>21.x (2023)</p></td>
+<td><p>Java 17+, Kubernetes integráció</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>IBM WebSphere</p></td>
+<td><p>8.5 (2012)</p></td>
+<td><p>Java EE 6 támogatás, klasszikus WAS</p></td>
+</tr>
+<tr class="row-even"><td><p>WebSphere Liberty</p></td>
+<td><p>20.x–24.x</p></td>
+<td><p>Moduláris, Jakarta EE 10, Java 17+, MicroProfile</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tamogatott-java-verziok-azon-belul-java-szabvany-ezt-erdemes-lehet-peldaul-tablazatos-formaban-sorokban-feature-ok-oszlopokban-alkalmazasszerverek">
+<h2>Támogatott Java verziók, azon belül Java szabvány (Ezt érdemes lehet például táblázatos formában: sorokban feature-ök, oszlopokban alkalmazásszerverek.)<a class="headerlink" href="#tamogatott-java-verziok-azon-belul-java-szabvany-ezt-erdemes-lehet-peldaul-tablazatos-formaban-sorokban-feature-ok-oszlopokban-alkalmazasszerverek" title="Link to this heading"></a></h2>
+<table class="docutils align-default" id="id13">
+<caption><span class="caption-text">Java verziók és Java EE/Jakarta EE támogatás</span><a class="headerlink" href="#id13" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 19.5%" />
+<col style="width: 11.5%" />
+<col style="width: 11.5%" />
+<col style="width: 11.5%" />
+<col style="width: 11.5%" />
+<col style="width: 11.5%" />
+<col style="width: 11.5%" />
+<col style="width: 11.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Jetty</p></th>
+<th class="head"><p>GlassFish</p></th>
+<th class="head"><p>WildFly / JBoss EAP</p></th>
+<th class="head"><p>Tomcat</p></th>
+<th class="head"><p>Geronimo</p></th>
+<th class="head"><p>WebLogic</p></th>
+<th class="head"><p>WebSphere</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Legfrissebb Java futási környezet</p></td>
+<td><p>Java 17+ (Jetty 12)</p></td>
+<td><p>JDK 11–17 (GlassFish 7)</p></td>
+<td><p>Java 11–17 (WildFly 36)</p></td>
+<td><p>Java 8+ (Tomcat 11+)</p></td>
+<td><p>Java 6–8 (legutóbbi 3.0)</p></td>
+<td><p>Java 11+ (WebLogic 14.1.1)</p></td>
+<td><p>Java 6–11 / 8+ (Liberty)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jakarta EE teljes (Full) támogatás</p></td>
+<td><p>EE8–11 Full</p></td>
+<td><p>Java EE 8 / Jakarta EE 9.1–10</p></td>
+<td><p>Jakarta EE 8–10 Full</p></td>
+<td><p>—</p></td>
+<td><p>Java EE 6 Full (3.0)</p></td>
+<td><p>Java EE 8 Full</p></td>
+<td><p>Java EE 7/8 Full</p></td>
+</tr>
+<tr class="row-even"><td><p>Jakarta EE Web Profile támogatás</p></td>
+<td><p>EE8–11 Web</p></td>
+<td><p>Web + Full</p></td>
+<td><p>Web + Full</p></td>
+<td><p>Servlet/JSP támogatás</p></td>
+<td><p>WebProfile (Java EE 6)</p></td>
+<td><p>Implicit WebProfile része</p></td>
+<td><p>WebProfile + Full (Liberty)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Servlet spec verzió</p></td>
+<td><p>Servlet 4.0–6+</p></td>
+<td><p>Servlet 4.0</p></td>
+<td><p>Servlet 4.0+</p></td>
+<td><p>Servlet 4/5/6 (Tomcat 9–11)</p></td>
+<td><p>Servlet 3.0</p></td>
+<td><p>Servlet 4.0+</p></td>
+<td><p>Servlet 3.0–4.0+</p></td>
+</tr>
+<tr class="row-even"><td><p>HTTP/2 támogatás</p></td>
+<td><p>Igen (Jetty 9.4+)</p></td>
+<td><p>Részleges / proxyn keresztül</p></td>
+<td><p>Igen (WildFly 10+)</p></td>
+<td><p>Igen (Tomcat 8.5+)</p></td>
+<td><p>Nem natívan (proxyval megoldható)</p></td>
+<td><p>Igen (WebLogic 12.2.1+)</p></td>
+<td><p>Igen (WebSphere Liberty, 2017+)</p></td>
+</tr>
+<tr class="row-odd"><td><p>JSP</p></td>
+<td><p>3.1</p></td>
+<td><p>3.1</p></td>
+<td><p>3.1</p></td>
+<td><p>3.1</p></td>
+<td><p>2.2</p></td>
+<td><p>2.3</p></td>
+<td><p>3.1</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="telepitessel-kapcsolatban-beallitasok-fajlok-jegyzekek-szerkezete-merete">
+<h2>Telepítéssel kapcsolatban beállítások, fájlok, jegyzékek (szerkezete, mérete)<a class="headerlink" href="#telepitessel-kapcsolatban-beallitasok-fajlok-jegyzekek-szerkezete-merete" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3>Eclipse Jetty<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>A Jetty egy könnyű, moduláris alkalmazásszerver, amely különösen jól használható beágyazott rendszerekben vagy microservice-alkalmazásokban.</p>
+<p><strong>Telepítés és beállítás:</strong>
+- A Jetty letölthető <cite>jetty-distribution</cite> formájában (.zip vagy .tar.gz), majd kicsomagolható pl. <cite>/opt/jetty</cite> könyvtárba.</p>
+<ul class="simple">
+<li><p>Konfigurálása moduláris: a <cite>start.ini</cite> vagy <cite>start.d/*.ini</cite> fájlokban történik.</p></li>
+<li><p>A Jetty két fontos környezeti változót használ: <code class="docutils literal notranslate"><span class="pre">JETTY_HOME</span></code> (alap Jetty könyvtár) és <code class="docutils literal notranslate"><span class="pre">JETTY_BASE</span></code> (egyedi konfigurációs példányok).</p></li>
+</ul>
+<p><strong>Fájlszerkezet:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>jetty/
+  ├── bin/
+  ├── lib/
+  ├── modules/
+  ├── start.d/
+  ├── etc/
+  └── webapps/
+</pre></div>
+</div>
+<p><strong>Átlagos méret:</strong> kb. 30–80 MB alapszinten (modulok növelhetik)</p>
+<p><strong>JSP és HTTP/2 támogatás:</strong></p>
+<ul class="simple">
+<li><p>JSP külön modulban érhető el (jetty-jsp).</p></li>
+<li><p>HTTP/2 támogatott a <cite>http2</cite> modul engedélyezésével.</p></li>
+</ul>
+</section>
+<section id="glassfish">
+<h3>GlassFish<a class="headerlink" href="#glassfish" title="Link to this heading"></a></h3>
+<p>A GlassFish a Java EE / Jakarta EE referenciaimplementációja.</p>
+<p><strong>Telepítés és beállítás:</strong></p>
+<ul class="simple">
+<li><p>Telepítés önkicsomagoló <cite>.sh</cite> vagy <cite>.zip</cite> formátumból.</p></li>
+<li><p>Konfigurálás az <cite>asadmin</cite> parancssori eszközzel történik.</p></li>
+<li><p>Alapértelmezett domain: <code class="docutils literal notranslate"><span class="pre">domain1</span></code>.</p></li>
+</ul>
+<p><strong>Fájlszerkezet:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>glassfish/
+  ├── bin/
+  ├── glassfish/
+  │   ├── domains/
+  │   ├── lib/
+  │   └── modules/
+  └── javadb/
+</pre></div>
+</div>
+<p><strong>Átlagos méret:</strong> kb. 150–400 MB</p>
+<p><strong>JSP és HTTP/2 támogatás:</strong></p>
+<ul class="simple">
+<li><p>JSP támogatott.</p></li>
+<li><p>HTTP/2 csak reverse proxy-n keresztül érhető el (nem natív).</p></li>
+</ul>
+</section>
+<section id="wildfly-jboss-eap">
+<h3>WildFly / JBoss EAP<a class="headerlink" href="#wildfly-jboss-eap" title="Link to this heading"></a></h3>
+<p>A WildFly (korábban JBoss AS) egy Red Hat által támogatott alkalmazásszerver. Nyílt forráskódú, a JBoss EAP az enterprise verziója.</p>
+<p><strong>Telepítés és beállítás:</strong></p>
+<ul class="simple">
+<li><p>ZIP archívumból telepíthető (<cite>wildfly-&lt;ver&gt;.Final.zip</cite>).</p></li>
+<li><p>Konfigurálás: <cite>standalone.xml</cite> vagy <cite>domain.xml</cite> fájlokon keresztül.</p></li>
+<li><p>Indítás: <cite>bin/standalone.sh</cite> (vagy <cite>domain.sh</cite>).</p></li>
+</ul>
+<p><strong>Fájlszerkezet:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>wildfly/
+  ├── bin/
+  ├── modules/
+  ├── standalone/
+  │   ├── configuration/
+  │   ├── deployments/
+  │   └── log/
+  └── domain/
+</pre></div>
+</div>
+<p><strong>Átlagos méret:</strong> kb. 250–600 MB</p>
+<p><strong>JSP és HTTP/2 támogatás:</strong></p>
+<ul class="simple">
+<li><p>JSP támogatott.</p></li>
+<li><p>HTTP/2 támogatott (modulok és TLS konfiguráció szükséges).</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Apache Tomcat<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>A Tomcat egy népszerű, könnyű servlet konténer. Nem teljes Java EE szerver, de támogatja a legtöbb webes Java technológiát.</p>
+<p><strong>Telepítés és beállítás:</strong></p>
+<ul class="simple">
+<li><p>ZIP vagy Windows telepítőcsomag formájában elérhető.</p></li>
+<li><p>Konfigurálás a <cite>conf/server.xml</cite> fájlban történik.</p></li>
+<li><p>WAR fájlokat a <cite>webapps</cite> könyvtárba kell másolni.</p></li>
+</ul>
+<p><strong>Fájlszerkezet:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>tomcat/
+  ├── bin/
+  ├── conf/
+  ├── lib/
+  ├── logs/
+  ├── webapps/
+  └── work/
+</pre></div>
+</div>
+<p><strong>Átlagos méret:</strong> kb. 150–300 MB</p>
+<p><strong>JSP és HTTP/2 támogatás:</strong></p>
+<ul class="simple">
+<li><p>JSP támogatott (beépített Jasper motor).</p></li>
+<li><p>HTTP/2 támogatott a megfelelő connector konfigurálásával.</p></li>
+</ul>
+</section>
+</section>
+<section id="id3">
+<h2>Apache Geronimo<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>Könyvtárstruktúra:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>geronimo/
+  ├── bin/
+  ├── lib/
+  ├── deploy/
+  ├── var/
+  ├── usr/
+  └── etc/
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Fő konfigurációs fájl: <cite>config.xml</cite> és egyéb XML fájlok</p></li>
+<li><p>Telepítés kb. 150-250 MB között</p></li>
+<li><p>Konfiguráció XML alapú, olvasható, áttekinthető</p></li>
+<li><p>Alkalmazások a <cite>deploy/</cite> könyvtárba kerülnek</p></li>
+</ul>
+<section id="id4">
+<h3>Oracle WebLogic<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>A WebLogic egy vállalati Java EE szerver, amelyet az Oracle fejleszt és támogat.</p>
+<p><strong>Telepítés és beállítás:</strong></p>
+<ul class="simple">
+<li><p>Installer futtatása: <cite>java -jar fmw_*.jar</cite>.</p></li>
+<li><p>Domain konfiguráció grafikus vagy parancssori eszközzel.</p></li>
+<li><p>Admin Console webes kezelőfelületen elérhető.</p></li>
+</ul>
+<p><strong>Fájlszerkezet:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>oracle/
+  ├── middleware/
+      ├── wlserver/
+      │   └── server/
+      │       └── lib/
+      └── user_projects/
+          └── domains/
+              └── base_domain/
+</pre></div>
+</div>
+<p><strong>Átlagos méret:</strong> 800 MB–1,5 GB (telepítéstől függően)</p>
+<p><strong>JSP és HTTP/2 támogatás:</strong></p>
+<ul class="simple">
+<li><p>JSP támogatott.</p></li>
+<li><p>HTTP/2 natív módon nem, csak proxyval.</p></li>
+</ul>
+</section>
+<section id="ibm-websphere-liberty">
+<h3>IBM WebSphere (Liberty)<a class="headerlink" href="#ibm-websphere-liberty" title="Link to this heading"></a></h3>
+<p>A WebSphere Liberty egy könnyűsúlyú, moduláris alkalmazásszerver az IBM-től, amely konténeres környezetben is kiválóan működik.</p>
+<p><strong>Telepítés és beállítás:</strong></p>
+<ul class="simple">
+<li><p>Telepítés JAR-ból (<cite>java -jar wlp-runtime.jar</cite>).</p></li>
+<li><p>Modulok telepítése: <cite>bin/installUtility install &lt;feature&gt;</cite>.</p></li>
+<li><p>Alapértelmezett szerver: <cite>defaultServer</cite>.</p></li>
+</ul>
+<p><strong>Fájlszerkezet:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>wlp/
+  ├── bin/
+  ├── lib/
+  ├── usr/
+      └── servers/
+          └── defaultServer/
+              ├── server.xml
+              ├── dropins/
+              ├── apps/
+              └── logs/
+</pre></div>
+</div>
+<p><strong>Átlagos méret:</strong> 200–300 MB + modulok</p>
+<p><strong>JSP és HTTP/2 támogatás:</strong></p>
+<ul class="simple">
+<li><p>JSP támogatott (modulként).</p></li>
+<li><p>HTTP/2 támogatott (HTTPS + feature: <cite>servlet-4.0</cite>).</p></li>
+</ul>
+</section>
+</section>
+<section id="fejlesztokornyezetek-egyeb-eszkozok-pl-monitorozashoz-konfiguraciohoz-eroforrasfigyeles">
+<h2>Fejlesztőkörnyezetek, egyéb eszközök (pl.: monitorozáshoz, konfigurációhoz, erőforrásfigyelés)<a class="headerlink" href="#fejlesztokornyezetek-egyeb-eszkozok-pl-monitorozashoz-konfiguraciohoz-eroforrasfigyeles" title="Link to this heading"></a></h2>
+<section id="id5">
+<h3>Eclipse Jetty<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztéshez ajánlott eszközök:</strong></p>
+<ul class="simple">
+<li><p><strong>Eclipse IDE</strong>: Jetty integrálható a WTP pluginnel vagy Maven-en keresztül beágyazottként.</p></li>
+<li><p><strong>IntelliJ IDEA</strong>: támogatja a Jetty-t Maven/Gradle projektekhez.</p></li>
+</ul>
+<p><strong>Konfigurációs eszközök:</strong></p>
+<ul class="simple">
+<li><p>Manuális szerkesztés: <cite>start.ini</cite>, <cite>start.d/*.ini</cite>, XML fájlok</p></li>
+<li><p>Jetty XML konfigurációs séma: testreszabható modulonként</p></li>
+</ul>
+<p><strong>Monitorozás, menedzsment:</strong></p>
+<ul class="simple">
+<li><p>JMX támogatott</p></li>
+<li><p>Harmadik féltől származó eszközök: Prometheus, Micrometer, VisualVM</p></li>
+</ul>
+<p><strong>Megjegyzés:</strong> Jetty nem tartalmaz webes admin felületet.</p>
+</section>
+<section id="id6">
+<h3>GlassFish<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztéshez ajánlott eszközök:</strong></p>
+<ul class="simple">
+<li><p><strong>NetBeans</strong>: natív GlassFish integráció (Java EE projektek)</p></li>
+<li><p><strong>Eclipse IDE</strong>: GlassFish Tools (Eclipse Marketplace-en keresztül)</p></li>
+<li><p><strong>IntelliJ IDEA Ultimate</strong>: beépített támogatás EAR/WAR deploymenthez</p></li>
+</ul>
+<p><strong>Konfigurációs eszközök:</strong></p>
+<ul class="simple">
+<li><p><strong>Admin Console</strong>: webes UI (<cite>http://localhost:4848</cite>)</p></li>
+<li><p><strong>asadmin</strong>: parancssoros eszköz domain konfigurációhoz</p></li>
+</ul>
+<p><strong>Monitorozás, menedzsment:</strong></p>
+<ul class="simple">
+<li><p>Webes admin felület</p></li>
+<li><p>JMX, SNMP támogatás</p></li>
+<li><p>Integrálható: Prometheus exporter, VisualVM, Java Mission Control</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>WildFly / JBoss EAP<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztéshez ajánlott eszközök:</strong></p>
+<ul class="simple">
+<li><p><strong>IntelliJ IDEA Ultimate</strong>: JBoss/WildFly szerverindítás, remote deploy</p></li>
+<li><p><strong>Eclipse IDE + JBoss Tools</strong>: teljeskörű fejlesztői integráció</p></li>
+<li><p><strong>NetBeans</strong>: alapvető WildFly támogatás</p></li>
+</ul>
+<p><strong>Konfigurációs eszközök:</strong></p>
+<ul class="simple">
+<li><p><strong>CLI</strong>: <cite>jboss-cli.sh</cite> (szerver konfigurálása parancssorból)</p></li>
+<li><p><strong>Admin Console</strong>: webes kezelőfelület (<cite>http://localhost:9990</cite>)</p></li>
+<li><p>YAML és XML konfiguráció <cite>standalone.xml</cite>, <cite>domain.xml</cite></p></li>
+</ul>
+<p><strong>Monitorozás, menedzsment:</strong></p>
+<ul class="simple">
+<li><p>Webes admin felület, JMX, CLI</p></li>
+<li><p>Beépített audit- és logolási funkciók</p></li>
+<li><p>Prometheus exporter, Grafana dashboard támogatott</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>Apache Tomcat<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztéshez ajánlott eszközök:</strong></p>
+<ul class="simple">
+<li><p><strong>IntelliJ IDEA</strong> (Community/Ultimate): WAR deploy, debug</p></li>
+<li><p><strong>Eclipse IDE</strong>: WTP plugin Tomcat támogatással</p></li>
+<li><p><strong>NetBeans</strong>: egyszerű integráció Tomcat-hez</p></li>
+</ul>
+<p><strong>Konfigurációs eszközök:</strong></p>
+<ul class="simple">
+<li><p><cite>conf/server.xml</cite> fájl kézi szerkesztéssel</p></li>
+<li><p>Minimális webes felület (<cite>/manager</cite> és <cite>/host-manager</cite>)</p></li>
+</ul>
+<p><strong>Monitorozás, menedzsment:</strong></p>
+<ul class="simple">
+<li><p>Web Manager App (basic autentikációval)</p></li>
+<li><p>JMX, VisualVM</p></li>
+<li><p>Tomcat Manager REST API</p></li>
+</ul>
+</section>
+<section id="id9">
+<h3>Apache Geronimo<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztéshez ajánlott eszközök:</strong></p>
+<ul class="simple">
+<li><p>Támogatott az Eclipse (korábban külön Geronimo plugin is elérhető volt), valamint NetBeans-en keresztül is integrálható volt a telepített szerver.</p></li>
+</ul>
+<p><strong>Konfigurációs eszközök</strong></p>
+<ul class="simple">
+<li><p>XML-alapú konfiguráció (<cite>config.xml</cite>), fájlszinten szerkeszthető.</p></li>
+<li><p>CLI lehetőségek is voltak, de nem annyira kifinomult, mint pl. <cite>asadmin</cite> vagy <cite>jboss-cli</cite>.</p></li>
+</ul>
+<p><strong>Monitorozás és naplózás</strong></p>
+<ul class="simple">
+<li><p>Beépített <strong>JMX támogatás</strong>, integrálható JConsole vagy más JMX-kompatibilis eszközzel.</p></li>
+<li><p>Alap naplózás: <cite>var/log/</cite> mappában található, <cite>log4j</cite> alapú konfigurációval.</p></li>
+<li><p>A Geronimo rendelkezik saját <strong>web alapú admin felülettel</strong> (korábbi verziókban a <cite>http://localhost:8080/console</cite> címen érhető el).</p></li>
+<li><p>Innen telepíthetőek WAR/JAR/EAR fájlok, valamint konfigurálhatóak adatforrások, biztonsági beállítások stb.</p></li>
+</ul>
+</section>
+<section id="id10">
+<h3>Oracle WebLogic<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztéshez ajánlott eszközök:</strong></p>
+<ul class="simple">
+<li><p><strong>Oracle JDeveloper</strong>: natív támogatás WebLogic deployhoz</p></li>
+<li><p><strong>IntelliJ IDEA Ultimate</strong>: WebLogic integráció</p></li>
+<li><p><strong>Eclipse IDE</strong>: Oracle Enterprise Pack for Eclipse</p></li>
+</ul>
+<p><strong>Konfigurációs eszközök:</strong></p>
+<ul class="simple">
+<li><p><strong>WebLogic Console</strong>: grafikus admin felület (<cite>http://localhost:7001/console</cite>)</p></li>
+<li><p>WLST (WebLogic Scripting Tool): Python-szerű szkriptnyelv konfigurációhoz</p></li>
+<li><p>XML alapú <cite>config.xml</cite> és deployment descriptor fájlok</p></li>
+</ul>
+<p><strong>Monitorozás, menedzsment:</strong></p>
+<ul class="simple">
+<li><p>Web Console, JMX, WLDF (WebLogic Diagnostic Framework)</p></li>
+<li><p>Enterprise Manager (OEM) integráció</p></li>
+<li><p>Támogatja a Prometheus exportert (kiegészítővel)</p></li>
+</ul>
+</section>
+<section id="id11">
+<h3>IBM WebSphere (Liberty)<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p><strong>Fejlesztéshez ajánlott eszközök:</strong></p>
+<ul class="simple">
+<li><p><strong>Eclipse IDE + WebSphere Developer Tools</strong></p></li>
+<li><p><strong>IntelliJ IDEA Ultimate</strong></p></li>
+<li><p><strong>Maven / Gradle</strong>: támogatott build és deployment</p></li>
+</ul>
+<p><strong>Konfigurációs eszközök:</strong></p>
+<ul class="simple">
+<li><p>XML alapú <cite>server.xml</cite> fájl a <cite>usr/servers/&lt;name&gt;/</cite> könyvtárban</p></li>
+<li><p><strong>Admin Center (web UI)</strong>: elérhető fejlesztői módokban</p></li>
+<li><p><cite>server.bat</cite> vagy <cite>server script</cite> CLI konfigurációhoz</p></li>
+</ul>
+<p><strong>Monitorozás, menedzsment:</strong></p>
+<ul class="simple">
+<li><p>Web Admin Center (GUI), REST API</p></li>
+<li><p>JMX, OpenTelemetry támogatás</p></li>
+<li><p>Kibővíthető: Prometheus, Grafana, Micrometer, ELK Stack</p></li>
+</ul>
+</section>
+</section>
+<section id="tipikus-alkalmazasi-eseteket-rendszerezni-statikus-fajlkiszolgalas-servlet-jsf">
+<h2>Tipikus alkalmazási eseteket rendszerezni (statikus fájlkiszolgálás, Servlet, JSF, …)<a class="headerlink" href="#tipikus-alkalmazasi-eseteket-rendszerezni-statikus-fajlkiszolgalas-servlet-jsf" title="Link to this heading"></a></h2>
+<p>Az alábbi táblázat az egyes Java EE/Jakarta EE alkalmazásszerverek által leggyakrabban támogatott vagy használt alkalmazási eseteket rendszerezi.</p>
+<table class="docutils align-default" id="id14">
+<caption><span class="caption-text">Alkalmazási esetek támogatottsága alkalmazásszerverenként</span><a class="headerlink" href="#id14" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 21.6%" />
+<col style="width: 11.2%" />
+<col style="width: 11.2%" />
+<col style="width: 11.2%" />
+<col style="width: 11.2%" />
+<col style="width: 11.2%" />
+<col style="width: 11.2%" />
+<col style="width: 11.2%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Alkalmazási típus</p></th>
+<th class="head"><p>Jetty</p></th>
+<th class="head"><p>GlassFish</p></th>
+<th class="head"><p>WildFly / JBoss</p></th>
+<th class="head"><p>Tomcat</p></th>
+<th class="head"><p>Geronimo</p></th>
+<th class="head"><p>WebLogic</p></th>
+<th class="head"><p>WebSphere</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Statikus fájlok kiszolgálása</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-odd"><td><p>Servlet-alapú webapp</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-even"><td><p>JSP alapú webapp</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-odd"><td><p>JSF (JavaServer Faces)</p></td>
+<td><p>Nem natívan</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-even"><td><p>REST API (JAX-RS)</p></td>
+<td><p>Külső lib-kel</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Külső lib-kel</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-odd"><td><p>SOAP szolgáltatás (JAX-WS)</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-even"><td><p>EJB (Enterprise Java Beans)</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-odd"><td><p>CDI (Context and Dependency Injection)</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-even"><td><p>WebSocket</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-odd"><td><p>Szerver-oldali komponensmodell (pl. JSF + EJB)</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-even"><td><p>Microservice architektúra (pl. REST + CDI)</p></td>
+<td><p>Igen (lightweight)</p></td>
+<td><p>Korlátozott</p></td>
+<td><p>Igen</p></td>
+<td><p>Korlátozott</p></td>
+<td><p>Nem</p></td>
+<td><p>Korlátozott</p></td>
+<td><p>Igen (Liberty)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Nagyvállalati alkalmazás (monolitikus EAR)</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+<tr class="row-even"><td><p>Admin felület integráció</p></td>
+<td><p>Nem</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Opcionális</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+<td><p>Igen</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Java szerverek összehasonlítása" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Kodelemzes.html" class="btn btn-neutral float-right" title="Kódelemzés" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Dávid Drig.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
